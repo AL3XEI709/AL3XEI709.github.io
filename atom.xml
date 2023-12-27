@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-27T06:25:06.823Z</updated>
+  <updated>2023-12-27T06:29:35.395Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CVE-2022-21449分析</title>
+    <link href="http://example.com/2023/12/27/CVE-2022-21449%E5%88%86%E6%9E%90/"/>
+    <id>http://example.com/2023/12/27/CVE-2022-21449%E5%88%86%E6%9E%90/</id>
+    <published>2023-12-27T06:28:59.000Z</published>
+    <updated>2023-12-27T06:29:35.395Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;/&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>GoGoCrypto_writeup</title>
