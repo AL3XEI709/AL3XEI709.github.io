@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-27T07:39:44.514Z</updated>
+  <updated>2023-12-31T09:28:26.084Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CVE-2023-38408-Brief-analysis</title>
+    <link href="http://example.com/2023/12/27/CVE-2023-38408-Brief-analysis/"/>
+    <id>http://example.com/2023/12/27/CVE-2023-38408-Brief-analysis/</id>
+    <published>2023-12-27T15:56:20.000Z</published>
+    <updated>2023-12-31T09:28:26.084Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><p><img src="https://iototsecnews.files.wordpress.com/2023/07/openssh.png?w=1008" alt="img"></p><p>SSH（Secure Shell）是一种加密的网络传输协议。主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。OpenSSH软件套件负责SSH协议的实现。</p><p>23年七月爆出来OpenSSH(9.3p2版本以前)的一个CVE，用户使用 SSH-Agent 代理转发功能连接攻击者恶意服务器时，由于 SSH-Agent 未对加载的共享库进行限制，攻击者可通过将恶意共享库作为参数传递给 SSH-Agent 并通过其调用 dlopen&#x2F;dlclose 函数加载 &#x2F; 卸载位于用户客户端主机的共享库，实现远程代码执行。</p><p>攻击流程如图：</p><p><img src="https://github.com/LucasPDiniz/CVE-2023-38408/raw/main/img/poc.JPG" alt="img"></p><ul><li>攻击者通过SSH连接到服务器</li><li>Alice也通过SSH连接到服务器，此时Alice使用SSH转发代理连接到攻击者。</li><li>攻击者创建shellcode, 通过ssh进程发送给目标服务器</li><li>shellcode利用ssh-agent的PKCS#11漏洞创建一个新进程，劫持Alice的ssh访问权限</li><li>成功执行该攻击后，攻击者可能会访问绑定shell（shell代码），该shell可以使用netcat进行访问。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;/&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://iototsecnews.files.wordpress.com/2023/07/openssh.png?w=1008&quot; alt=&quot;img&quot;&gt;&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="vul" scheme="http://example.com/tags/vul/"/>
+    
+  </entry>
   
   <entry>
     <title>CVE-2022-21449-Brief-analysis</title>
