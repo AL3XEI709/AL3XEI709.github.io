@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/images/avatar.png" type="image/x-icon" />
+    <title>
+        
+            Crypto_Papers_Read_&amp;_Recurrent |
+         
+        Hexo
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/solid.min.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXXXX');
+        </script>
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu-list">
+            <ul>
+            
+                <li>
+                    <a href="/">Home</a>
+                </li>
+            
+                <li>
+                    <a href="/about">About</a>
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>Crypto_Papers_Read_&amp;_Recurrent</h1>
+            </div>
+            <div class="post-meta">
+                <i class="fa-solid fa-clock"></i>&nbsp;<span class="post-date">2024/01/29</span>
+            </div>
+            
+            <div class="post-content">
+                <meta name="referrer" content="no-referrer"/>
+
+<blockquote>
+<p>碎碎念：本篇是我复现论文的集合。有很多翻译有疏漏，根本原因是我太菜了:( 。因此能用代码解释或者验证的地方，我都尽量写代码。</p>
+<p>Talk is cheap, show me the code.</p>
+</blockquote>
+<h1 id="0x01-RSA私钥过大的漏洞"><a href="#0x01-RSA私钥过大的漏洞" class="headerlink" title="0x01  RSA私钥过大的漏洞"></a>0x01  RSA私钥过大的漏洞</h1><blockquote>
+<p>使用过小的RSA私钥指数引发的危险在十多年前就已经为人所知。用户虽然已知这些威胁，但依然希望从实质上降低解密时间，可能会倾向于使用一个与很大的私钥相关的<strong>小负素数</strong>。这篇论文展示了Wiener, Boneh &amp; Durfee, Blomer &amp; May的<strong>针对小私钥指数的攻击</strong>，以及由上述攻击延申的对含多个素数的RSA的攻击，<strong>同样适用于私钥指数非常大的情况</strong>。</p>
+</blockquote>
+<h2 id="1-1-低加密指数攻击"><a href="#1-1-低加密指数攻击" class="headerlink" title="1.1 低加密指数攻击"></a>1.1 低加密指数攻击</h2><p>考虑公钥指数$e&#x3D;3$ 的RSA。如果明文大小在 $0&lt;m&lt;N^{1&#x2F;3}$ 区间内，解密仅需简单的对密文 $c&#x3D;m^3\mod N$ 开三次方即可，因为 $m^3&lt;N$。考虑处于 $N-N^{1&#x2F;3}&lt;m&lt;N$ 区间内的明文。相应的，在有限域的表示里，$-N^{1&#x2F;3}&lt;m&lt;0$。令 $c&#x3D;m^3\mod N$ ，解密仅需计算出 $-c\mod N$ 的三次方，即 $m&#x3D;-^3\sqrt {-c}$ 。</p>
+<h2 id="1-2-连分数攻击-Wiener"><a href="#1-2-连分数攻击-Wiener" class="headerlink" title="1.2 连分数攻击( Wiener )"></a>1.2 连分数攻击( Wiener )</h2><p> 针对RSA小私钥指数的Wiener 攻击，可以轻而易举的扩展到针对大私钥指数的攻击。</p>
+<p> <strong>定理1.</strong> 令RSA的模数为$N$，私钥指数$d$ 满足  $\sqrt 6 (\phi(N)-d)&lt;N^{1&#x2F;4}$ ，则公钥 $(N,e)$ 已知的情况下，在多项式时间 $\log_2N$ 内可以求得私钥。</p>
+<p>由RSA公式：$ed\equiv 1\pmod {\phi(N)}$ ，可化为$e(d-\phi(N))\equiv1\pmod{\phi(N)}$ 。令 $D&#x3D;\phi(N)-d$，等式也可以写成<br>$$<br>eD&#x3D;-1+k\phi(N)<br>$$<br>$k$ 为正，且 $k&lt;D$。根据连分数的性质可求得</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401292106997.png" alt="image-20240129210633885"></p>
+<p>因此，$k&#x2F;D$ 是 $e&#x2F;N$ 的一个连分数项。通过连分数算法我们可以计算所有$e&#x2F;N$ 连分数的子项，验证正确的 $k&#x2F;D$ 。令 $k’&#x2F;D’$ 是 $e&#x2F; N$ 连分数的子项，我们可以计算 $\phi’&#x3D;(eD’+1)&#x2F;k’$ 并尝试分解 $N$ 。当 $k’&#x2F;D’&#x3D;k&#x2F;D$ 时，$\phi’&#x3D;\phi(N)$，就能实现分解 $N$。$N$ 分解后，计算 $d&#x3D;e^{-1}\pmod {\phi(N)}$ ，自然地 $d&#x3D;\phi(N)-D$ 。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, long_to_bytes <span class="keyword">as</span> ltb, bytes_to_long <span class="keyword">as</span> btl </span><br><span class="line">DEBUG = <span class="literal">True</span> </span><br><span class="line">flag = <span class="string">b&#x27;AL3XEI_FAKE_FLAG&#x27;</span> </span><br><span class="line"></span><br><span class="line">p,q = [getPrime(<span class="number">512</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="string">&quot;pq&quot;</span>] </span><br><span class="line">D = getPrime(<span class="number">250</span>) </span><br><span class="line">phi = ( p - <span class="number">1</span> ) * ( q - <span class="number">1</span> ) </span><br><span class="line">n = p * q </span><br><span class="line">d = phi - D </span><br><span class="line">e = <span class="built_in">int</span>(<span class="built_in">pow</span>(d, -<span class="number">1</span>, phi)) </span><br><span class="line">m = btl(flag) </span><br><span class="line">c = <span class="built_in">pow</span>( m, e, n ) </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;n = <span class="subst">&#123; n &#125;</span>&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;e = <span class="subst">&#123; e &#125;</span>&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;c = <span class="subst">&#123; c &#125;</span>&quot;</span>) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> DEBUG: </span><br><span class="line">    <span class="built_in">print</span>(D &lt; <span class="built_in">int</span>(( <span class="number">1</span> / <span class="number">3</span> ) * ( n ** ( <span class="number">1</span> / <span class="number">4</span>) ))) <span class="comment"># True</span></span><br><span class="line">    <span class="built_in">print</span>(d &gt; <span class="built_in">int</span>(( <span class="number">1</span> / <span class="number">3</span> ) * ( n ** ( <span class="number">1</span> / <span class="number">4</span>) ))) <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, long_to_bytes <span class="keyword">as</span> ltb, bytes_to_long <span class="keyword">as</span> btl </span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> invert, powmod</span><br><span class="line"></span><br><span class="line">n = </span><br><span class="line">e = </span><br><span class="line">c = </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> kD <span class="keyword">in</span> continued_fraction(e / n).convergents(): </span><br><span class="line">    k = kD.numer() </span><br><span class="line">    D = kD.denom() </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> ( e * D + <span class="number">1</span>) % k == <span class="number">0</span>:</span><br><span class="line">            phi =  ( e * D + <span class="number">1</span>) // k </span><br><span class="line">            d = phi - D </span><br><span class="line">            <span class="keyword">if</span> (e * d) % phi == <span class="number">1</span>:</span><br><span class="line">                m = powmod(c, d, n) </span><br><span class="line">                <span class="keyword">if</span> ltb(m) == <span class="string">b&#x27;AL3XEI_FAKE_FLAG&#x27;</span>:</span><br><span class="line">                    <span class="built_in">print</span>(ltb(m))</span><br><span class="line">                    <span class="keyword">break</span> </span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        <span class="keyword">continue</span> </span><br><span class="line"><span class="comment"># b&#x27;AL3XEI_FAKE_FLAG&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-3-小逆元攻击-Boneh-Durfee"><a href="#1-3-小逆元攻击-Boneh-Durfee" class="headerlink" title="1.3 小逆元攻击( Boneh &amp; Durfee )"></a>1.3 小逆元攻击( Boneh &amp; Durfee )</h2><p>Boneh &amp; Durfee 提出的小私钥指数攻击是建立在解决小逆元问题上的。也即，给定整数 $A，M$ ，求较小的 $x, y$ 使得 $x_0(A+y_0)\equiv1\pmod M$ 成立。特别的，对于RSA，令 $e&#x3D;N^\alpha, a\approx 1,d&lt;N^\sigma$ ，且 $f(x,y)&#x3D;x(N+y)-1$ 。我们希望能找到 $x_0,y_0$ 满足<br>$$<br>f(x_0,y_0)\equiv0\pmod e, |x_0|&lt;X&#x3D;N^\sigma,|y_0|&lt;Y&#x3D;3N^{1&#x2F;2}<br>$$<br> 上述方程的一个解是 $(x_0,y_0)&#x3D;(k,\phi(N)-N)$ ，$k$ 是正整数，满足$ed-k\phi(N)&#x3D;1$ 。求得这个解就能恢复 $\phi(N)$，就能通过 $d&#x3D;e^{-1}\pmod{\phi(N)}$ 求得私钥指数。Boneh &amp; Durfee 攻击能够成立的界是 $d&lt;N^{0.292}$。</p>
+<p><strong>定理2.</strong> 对针对RSA小私钥指数的，基于小逆元攻击的方法，如果在 $d&lt;N^\sigma$ 情况下成立，则在 $d&gt;\phi(N)-N^\sigma$ 情况下也成立。</p>
+<p>由RSA公式：$ed\equiv 1\pmod {\phi(N)}$ ，可化为$e(d-\phi(N))\equiv1\pmod{\phi(N)}$ 。等式也可以写成<br>$$<br>e(d-\phi(N))&#x3D;1-k\phi(N)<br>$$<br>$k$ 是正整数。令 $\phi(N)&#x3D;N-s$ ，通过模 $e$ 化简上式得：<br>$$<br>k(N-s)\equiv1\pmod e<br>$$<br>就可以回到与 Boneh &amp; Durfee 相同的证明开端了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, long_to_bytes <span class="keyword">as</span> ltb, bytes_to_long <span class="keyword">as</span> btl </span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> invert, powmod</span><br><span class="line"></span><br><span class="line">DEBUG = <span class="literal">True</span> </span><br><span class="line">flag = <span class="string">b&#x27;AL3XEI_FAKE_FLAG&#x27;</span> </span><br><span class="line"></span><br><span class="line">p,q = [getPrime(<span class="number">1024</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="string">&quot;pq&quot;</span>] </span><br><span class="line">D = getPrime(<span class="number">540</span>) </span><br><span class="line">phi = ( p - <span class="number">1</span> ) * ( q - <span class="number">1</span> ) </span><br><span class="line">n = p * q </span><br><span class="line">d = phi - D </span><br><span class="line">e = invert( e , phi ) </span><br><span class="line">m = btl(flag) </span><br><span class="line">c = powmod( m, e, n ) </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;n = <span class="subst">&#123; n &#125;</span>&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;e = <span class="subst">&#123; e &#125;</span>&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;c = <span class="subst">&#123; c &#125;</span>&quot;</span>) </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> DEBUG: </span><br><span class="line">    <span class="built_in">print</span>(D &gt; <span class="built_in">int</span>(( <span class="number">1</span> / <span class="number">3</span> ) * ( n ** ( <span class="number">1</span> / <span class="number">4</span>) ))) <span class="comment"># True</span></span><br><span class="line">    <span class="built_in">print</span>(D &lt; <span class="built_in">int</span>(n ** <span class="number">0.292</span>)) <span class="comment"># True </span></span><br><span class="line">    <span class="built_in">print</span>(d &gt; <span class="built_in">int</span>(( <span class="number">1</span> / <span class="number">3</span> ) * ( n ** ( <span class="number">1</span> / <span class="number">4</span>) ))) <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">small_roots</span>(<span class="params">f, bounds, m=<span class="number">1</span>, d=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> d:</span><br><span class="line">        d = f.degree()</span><br><span class="line"></span><br><span class="line">    R = f.base_ring()</span><br><span class="line">    N = R.cardinality()</span><br><span class="line"></span><br><span class="line">    f /= f.coefficients().pop(<span class="number">0</span>)</span><br><span class="line">    f = f.change_ring(ZZ)</span><br><span class="line"></span><br><span class="line">    G = <span class="type">Sequence</span>([], f.parent())</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>):</span><br><span class="line">        base = N ^ (m - i) * f ^ i</span><br><span class="line">        <span class="keyword">for</span> shifts <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(d), repeat=f.nvariables()):</span><br><span class="line">            g = base * prod(<span class="built_in">map</span>(power, f.variables(), shifts))</span><br><span class="line">            G.append(g)</span><br><span class="line"></span><br><span class="line">    B, monomials = G.coefficient_matrix()</span><br><span class="line">    monomials = vector(monomials)</span><br><span class="line"></span><br><span class="line">    factors = [monomial(*bounds) <span class="keyword">for</span> monomial <span class="keyword">in</span> monomials]</span><br><span class="line">    <span class="keyword">for</span> i, factor <span class="keyword">in</span> <span class="built_in">enumerate</span>(factors):</span><br><span class="line">        B.rescale_col(i, factor)</span><br><span class="line"></span><br><span class="line">    B = B.dense_matrix().LLL()</span><br><span class="line"></span><br><span class="line">    B = B.change_ring(QQ)</span><br><span class="line">    <span class="keyword">for</span> i, factor <span class="keyword">in</span> <span class="built_in">enumerate</span>(factors):</span><br><span class="line">        B.rescale_col(i, <span class="number">1</span> / factor)</span><br><span class="line"></span><br><span class="line">    H = <span class="type">Sequence</span>([], f.parent().change_ring(QQ))</span><br><span class="line">    <span class="keyword">for</span> h <span class="keyword">in</span> <span class="built_in">filter</span>(<span class="literal">None</span>, B * monomials):</span><br><span class="line">        H.append(h)</span><br><span class="line">        I = H.ideal()</span><br><span class="line">        <span class="keyword">if</span> I.dimension() == -<span class="number">1</span>:</span><br><span class="line">            H.pop()</span><br><span class="line">        <span class="keyword">elif</span> I.dimension() == <span class="number">0</span>:</span><br><span class="line">            roots = []</span><br><span class="line">            <span class="keyword">for</span> root <span class="keyword">in</span> I.variety(ring=ZZ):</span><br><span class="line">                root = <span class="built_in">tuple</span>(R(root[var]) <span class="keyword">for</span> var <span class="keyword">in</span> f.variables())</span><br><span class="line">                roots.append(root)</span><br><span class="line">            <span class="keyword">return</span> roots</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n = </span><br><span class="line">e = </span><br><span class="line">c = </span><br><span class="line">P = Zmod(ZZ(e))[<span class="string">&quot;k,s&quot;</span>]</span><br><span class="line">k, s = P.gens()</span><br><span class="line">f = <span class="number">1</span> + k * (n - s)</span><br><span class="line">rs = small_roots(f, (<span class="number">2</span>**<span class="number">540</span>, <span class="number">2</span>**<span class="number">1025</span>), m=<span class="number">4</span>, d=<span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(rs)</span><br><span class="line">k, s = <span class="built_in">map</span>(<span class="built_in">int</span>, rs[<span class="number">0</span>])</span><br><span class="line">phi = n - s</span><br><span class="line">d = <span class="built_in">pow</span>(e, -<span class="number">1</span>, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(m)))</span><br></pre></td></tr></table></figure>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://utteranc.es/client.js"
+    repo="AL3XEI709/AL3XEI709.github.io.git"
+    issue-term="pathname"
+    theme="github-light"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    &copy; 2024 Al3XEI709.
+                </div>
+            
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            
+                <div class="footer-meta-rss">
+                    <a href="/atom.xml"><i class="fa-solid fa-rss"></i></a>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+</body>
+</html>
