@@ -79,6 +79,7 @@
 <p>碎碎念：本篇是我复现论文的集合。有很多翻译有疏漏，根本原因是我太菜了:( 。因此能用代码解释或者验证的地方，我都尽量写代码。</p>
 <p>Talk is cheap, show me the code.</p>
 </blockquote>
+<p>[TOC]</p>
 <h1 id="0x01-RSA私钥过大的漏洞"><a href="#0x01-RSA私钥过大的漏洞" class="headerlink" title="0x01  RSA私钥过大的漏洞"></a>0x01  RSA私钥过大的漏洞</h1><p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/papers/blob/main/cacr2004-01.pdf">Link</a></p>
 <blockquote>
 <p>使用过小的RSA私钥指数引发的危险在十多年前就已经为人所知。用户虽然已知这些威胁，但依然希望从实质上降低解密时间，可能会倾向于使用一个与很大的私钥相关的<strong>小负素数</strong>。这篇论文展示了Wiener, Boneh &amp; Durfee, Blomer &amp; May的<strong>针对小私钥指数的攻击</strong>，以及由上述攻击延申的对含多个素数的RSA的攻击，<strong>同样适用于私钥指数非常大的情况</strong>。</p>
