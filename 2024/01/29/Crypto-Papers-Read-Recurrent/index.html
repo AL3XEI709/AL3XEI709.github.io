@@ -119,7 +119,7 @@
 <p>令 $p$ 为素数，$a,c$ 为模 $p$ 有限域内的整数。<strong>二次生成器</strong> (QCG) 是一个由等式关系 $v_{n+1}&#x3D;av_n^2+c\mod p$ 构成的伪随机数序列 $(v_n)$ 。这篇论文展示了如果任意多个连续的 $v_n$ 的<strong>高位已知</strong>，就可以在多项式时间内<strong>还原初始变量</strong> $v_0$ (即使在参数 $c$ 未知的情况下)，前提是初始变量 $v_0$ 不在某些特殊值的小的子集里。</p>
 </blockquote>
 <h2 id="2-1-二次生成器"><a href="#2-1-二次生成器" class="headerlink" title="2.1 二次生成器"></a>2.1 二次生成器</h2><p>令 $p$ 为素数，$a,c$ 为模 $p$ 有限域内的整数。<strong>二次生成器</strong> (QCG) 是一个由等式关系 $v_{n+1}&#x3D;av_n^2+c\mod p$ 构成的伪随机数序列 $(v_n)$ 。等式中的 $a, c$​ 分别被称为乘子和偏移量。</p>
-<p>在密码设置中，初始量 $v_0$ 以及常量 $a, c$ 应该被设为私钥，利用生成器生成流密码。显然，如果多个连续的 $v_n$ 已知，求得 $v_0,a,c$ 是很容易的。所以在这个设置中，我们只输出 $v_n$ 的最高有效位 (msb) ，希望能让输出的序列更难预测。本篇论文讨论的就是在这种情况下如何预测 $v_{n+j}$ 。</p>
+<p>在密码设置中，初始量 $v_0$ 以及常量 $a, c$ 应该被设为私钥，利用生成器生成流密码。显然，如果多个连续的 $v_n$ 已知，求得 $v_0,a,c$ 是很容易的。所以在这个设置中，我们只输出 $v_n$ 的最高有效位 (msb) ，希望能让输出的序列更难预测。这篇论文展示的就是在这种情况下如何预测 $v_{n+j}$ 。</p>
 <p>假设序列 $(v_n)$ 未知，但对于给定的 $n$ ，一些近似值 $w_j$ 已知。以下分别讨论 $a,c$ 公开和 $a$ 公开，$c$ 不公开的两种情况下，如果 $w_j$ 条件足够好，$v_{n+j}$ 和 $a$ 就能在多项式内还原。</p>
 <p>在开始前，还要定义一个参数 $\Delta$ ，用来衡量 $w_j$ 近似 $v_{n+j}$ 的程度。这个参数通常假设为 $\Delta &lt; p$ 。更确切地，$w$ 是 $u$ 的 $\Delta$ - 近似，等价于 $|w-u|&lt;\Delta$ 。</p>
 <h2 id="2-2-乘子与偏移量已知，预测二次生成器"><a href="#2-2-乘子与偏移量已知，预测二次生成器" class="headerlink" title="2.2 乘子与偏移量已知，预测二次生成器"></a>2.2 乘子与偏移量已知，预测二次生成器</h2><p><strong>定理1.</strong> 令 $p$ 为素数，$\Delta$ 为 整数且 $p&gt;\Delta&gt;1$ 。对任意 $a, c\in F_p $ ，存在一个算法，当 $a,c$ 与二次生成器产生的两个连续的值 $v_0,v_1$  $\Delta$-近似的 $w_0,w_1$ 已知时，在多项式时间内返回 $v_0$ 的值。</p>
@@ -143,7 +143,7 @@
 <p>目前还不清楚当模数 $p$ 未知时如何预测二次生成器。</p>
 <h1 id="0x03-在攻击变体-RSA-中找到具有新应用的多元多项式根的策略"><a href="#0x03-在攻击变体-RSA-中找到具有新应用的多元多项式根的策略" class="headerlink" title="0x03 在攻击变体 RSA 中找到具有新应用的多元多项式根的策略"></a>0x03 在攻击变体 RSA 中找到具有新应用的多元多项式根的策略</h1><p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/papers/blob/main/jochemszmay.pdf">Link</a></p>
 <blockquote>
-<p>这篇论文描述了利用<strong>格基 Coppersmith</strong> 技术计算多元模多项式<strong>小整数根</strong>的策略。应用该策略，该论文得出在多项式时间内攻击两种 <strong>RSA 变体</strong>的方法。首先是 Qiao-Lam scheme, 其利用中国剩余定理在解密过程发挥作用。然后是共素数 RSA ，其素数生成的方法能抵抗 Wiener 攻击。</p>
+<p>这篇论文展示了利用<strong>格基 Coppersmith</strong> 技术计算多元模多项式<strong>小整数根</strong>的策略。应用该策略，该论文得出在多项式时间内攻击两种 <strong>RSA 变体</strong>的方法。首先是 Qiao-Lam scheme, 其利用中国剩余定理在解密过程发挥作用。然后是共素数 RSA ，其素数生成的方法能抵抗 Wiener 攻击。</p>
 </blockquote>
 <h2 id="1-1-jochemsz-may-方法"><a href="#1-1-jochemsz-may-方法" class="headerlink" title="1.1 jochemsz_may 方法"></a>1.1 jochemsz_may 方法</h2><p>论文开篇回顾了了 Coppersmith 以及 boneh Durfee 基于 Coppersmith 设计的针对 RSA 的攻击，并指出：找到一个小根的多项式 $f$ 的分析严重依赖于 $f$ 中出现的单项式，因此每个新的多项式都必须重新进行分析。这个工作无疑是十分繁杂的。2005年，Blomer 和 May 展示了如何寻找二元多项式小整数根的最佳界限。在本文中，我们提出了一种启发式策略，适用于所有多元多项式；无论是具有模数根还是整数根。</p>
 <h2 id="1-2-参数的设定"><a href="#1-2-参数的设定" class="headerlink" title="1.2 参数的设定"></a>1.2 参数的设定</h2><p>令多项式 $f(x,ym,z)&#x3D;a_0+a_1x+a_2x^2+a_3y+a_4z+a_5xy+a_6xz+a_7yz$ 有小根 $(x^0,y^0,z^0)$ ，$x,y,z$ 的上界分别为 $X,Y,Z$ 。根据论文提出的新策略，所有小根都能有效的在多项式时间 $logW$ 内恢复出来，前提是满足<br>$$<br>X^{(7+8\tau+3\tau^2)}(YZ)^{5+\frac{9}{2}\tau}&lt;W^{3+3\tau-\epsilon}<br>$$<br>同时，论文明确给出 $W&#x3D;||f(x_1X_n,\dots,x_nX_n)||<em>\infty$ ，而 $||f(x_1,\dots,x_n)||</em>{\infty}$ 的意思就是多项式的最大系数，所以 $W$ 就是多项式对各 $x$ 进行 $Xx$ 代入后的最大系数。举个例子，如 $f&#x3D;2x^2+3x+4$ ， $X&#x3D;2$ ，则 $||f(x_1X_n,\dots,x_nX_n)||&#x3D;8x^2+6x+4$ ，显然最大系数在 $x^2$ ，即 $W&#x3D;8$ 。</p>
@@ -161,9 +161,16 @@
 
 <h1 id="0X04-带有小的未知乘子的隐藏数问题：MEGA-的六次查询密码分析以及其他应用"><a href="#0X04-带有小的未知乘子的隐藏数问题：MEGA-的六次查询密码分析以及其他应用" class="headerlink" title="0X04 带有小的未知乘子的隐藏数问题：MEGA 的六次查询密码分析以及其他应用"></a>0X04 带有小的未知乘子的隐藏数问题：MEGA 的六次查询密码分析以及其他应用</h1><p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/papers/blob/main/2022-914.pdf">Link</a></p>
 <blockquote>
-<p>本篇论文介绍了如何利用云存储服务提供商 MEGA 的协议漏洞，通过仅需六次客户端登录的方式恢复私钥，泄露额外的信息。论文提供的攻击方式包含了多种密码分析技术。特别的，论文还总结提出了隐藏数问题变种的一个解法，该变种带有小的未知乘子。</p>
+<p>安全研究员最近提出了针对云存储提供商 MEGA 的一种攻击。该攻击通过伪装恶意服务器，在与客户端进行 512 次登录交互后会付出 RSA 私钥。这篇论文展示了由 MEGA 协议漏洞获取更多隐私的攻击攻击，只需与客户端进行 6 次登录交互即可恢复私钥。该联合攻击涉及多种密码分析技术。特别的，这篇论文还提出了一种隐藏数问题变体的解法，该变体涉及小的未知乘子。</p>
 </blockquote>
-
+<h2 id="4-1-HNP-SUM-简介"><a href="#4-1-HNP-SUM-简介" class="headerlink" title="4.1 HNP-SUM 简介"></a>4.1 HNP-SUM 简介</h2><p>论文的一项创新工作是解决了带有小的未知乘子的隐藏数问题 (以下简称为 HNP-SUM) 。</p>
+<p><strong>定义1.</strong> (HNP-SUM) 对于给定的整数 $N, a_i,T,E$ ，存在整数 $x,t_i,e_i$ 满足<br>$$<br>a_i\equiv t_ix+e_i\pmod N \<br>|t_i|&lt;T\<br>|e_i|&lt;E<br>$$<br>如何恢复 $t_i$ 签名的值 (ti 互素)。</p>
+<p><strong>定理1.</strong> 对 HNP-SUM 出现的 $N,a_i,T,E$ 以及随机生成的 $t_i$ ，当<br>$$<br>T^{(n+1)&#x2F;(n-1)}E&lt;N<br>$$<br>时，存在算法使HNP-SUM 可在多项式内求解。</p>
+<h2 id="4-2-HNP-SUM-在对-MEGA-密码分析的应用"><a href="#4-2-HNP-SUM-在对-MEGA-密码分析的应用" class="headerlink" title="4.2 HNP-SUM 在对 MEGA 密码分析的应用"></a>4.2 HNP-SUM 在对 MEGA 密码分析的应用</h2><p>MEGA 工作 (以及实施对 MEGA 攻击) 的环境中，服务器持有客户端 RSA 私钥的密文副本，加密方式是 AES-ECB mode，密钥由用户密码派生生成。</p>
+<p>在 MEGA 的登录协议中，服务器向客户端发送了一个使用 AES-ECB mode 加密的 RSA 私钥。 客户端解密 RSA 私钥，使用此 RSA 私钥解密session ID 得到 RSA 公钥 ，并发送给服务器一个应答值。RSA 私钥包含 $p,q,d,u\equiv q^{-1}\pmod p$ 。</p>
+<p>客户端返回服务器的值是<br>$$<br>MSB((u(m_p-m_q)q+m_q)\mod N)<br>$$<br>$m_p\equiv c^d\mod p,m_q\equiv c^d\pmod q$ 。</p>
+<p>攻击者作为恶意服务器，客户端作为解密 oracle，实质上构成了一个 HNP-SUM 问题。</p>
+<h2 id="4-3-求解-HNP-SUM"><a href="#4-3-求解-HNP-SUM" class="headerlink" title="4.3 求解 HNP-SUM"></a>4.3 求解 HNP-SUM</h2>
             </div>
         </div>
     </div>
