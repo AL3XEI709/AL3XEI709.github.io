@@ -1,79 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <link rel="shortcut icon" href="/images/avatar.png" type="image/x-icon" />
-    <title>
-        
-            CTF_Notes |
-         
-        Alexei
-    </title>
-    
-<link rel="stylesheet" href="/css/style.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/css/fontawesome.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/css/brands.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/css/solid.min.css">
-
-     
-    
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXXXX"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXXXX');
-        </script>
-    
-
-
-<!-- hexo injector head_end start -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>CTF_Notes │ Alexei</title><link rel="stylesheet" href="/css/oasis.css"><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Alexei" type="application/atom+xml">
-</head>
-
-<body>
-    <div class="body-container">
-        <div class="header-wrapper"><header>
-    <div class="header-container">
-        <div class="header-menu-list">
-            <ul>
-            
-                <li>
-                    <a href="/">Home</a>
-                </li>
-            
-                <li>
-                    <a href="/about">About</a>
-                </li>
-            
-            </ul>
-        </div>
-    </div>
-</header>
-</div>
-        <div class="main-wrapper"><main>
-    <div class="main-container">
-        <div class="post-details">
-            
-            <div class="post-title">
-                <h1>CTF_Notes</h1>
-            </div>
-            <div class="post-meta">
-                <i class="fa-solid fa-clock"></i>&nbsp;<span class="post-date">2024/01/22</span>
-            </div>
-            
-            <div class="post-content">
-                <meta name="referrer" content="no-referrer"/>
+</head><body><div id="content"><h1 id="title">CTF_Notes</h1><div id="menu-outer"><nav id="menu-inner"><a id="menu-back" href="javascript:history.back()">Back</a><time datetime="2024-01-22T14:09:34.000Z">2024-01-22</time></nav></div><div id="content-outer"><div id="content-inner"><article id="post"><meta name="referrer" content="no-referrer"/>
 
 <p>[TOC]</p>
 <h1 id="0x01-Not-Wiener"><a href="#0x01-Not-Wiener" class="headerlink" title="0x01. Not Wiener"></a>0x01. Not Wiener</h1><p>题目是变体的Boneh-Durfee attack, 需要在理解攻击原理后做调整。</p>
@@ -172,54 +102,4 @@
 <p>exp:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">length = <span class="number">38</span></span><br><span class="line">m = <span class="number">0x360c2b0209350b2a3a202029300a0222292e211f203714190f1a29272c3d1610121c302819291e33051b291e352f091027031b153a350b0324022f1d390124300f0510363700360c2e063404203a193e292b0d091d2c2c1d0a2a051e2201172e3a011d2610261d0b2d1d0a140e3b0128301c13270014130d3d182e3b222c142e25081a3e38332d221b072804083a350b023c292d24063b0424331b0200211439062a3405033c3a0d083d17132134033924340c0019003b192f1e3c2e270a151c23152e0b3c201d3624373a240c0d3c1e2d16160b2a251131360e173a0c25280211153128370d08273d08272e23072d211e2a3c272b00073635060e1b111f15283c1133033f29101937343318151001383d1b3b3c26361b1a001a233d0d200d070f042d2c20323130141c21160c162a0b0a3c3e0d280e212d0e1433221709202c14140c1f3402181a17160e1a342b133439173e051a3212391d203e303a03312d2a22380b000d271702002f13371509200b273c0d18070f232a3119021e100f1d36281525282d2f27231f3136161728242d000a2b1c3b102038043f1f3f130c2b1437163a063f0e21392b2a11192a3922231c333c1f1f05222c2c1b3a11270032191035023632340f2439290f28213e001a04182c2f3522303c35273b2a0e002a1a081a3c1639290127100f110e123c04222c022137280435261e20262d2c2702101d3f0e0b361f002622153d302f3f1a1907171a1627271e200917201b3e112520130b270b3a2836041d3a0921341d361025271b3b1f391b15040f170a36303e1f300c283a28090e2c1821213d1e3213361334252d3a1d16101816370e37393f</span></span><br><span class="line">m = long_to_bytes(m)</span><br><span class="line">l = [i <span class="keyword">for</span> i <span class="keyword">in</span> m]</span><br><span class="line">M = matrix(GF(<span class="number">2</span>),<span class="number">8</span>*length,<span class="number">6</span>*(<span class="number">8</span>*length-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>*length):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>*length-<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">            M[i,j*<span class="number">6</span>+k] = l[i+j] &gt;&gt; (<span class="number">5</span>-k)</span><br><span class="line">c = matrix(GF(<span class="number">2</span>),<span class="number">1</span>,<span class="number">6</span>*(<span class="number">8</span>*length-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>*length-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        c[<span class="number">0</span>,i*<span class="number">6</span>+j] = l[i+<span class="number">8</span>*length+<span class="number">1</span>] &gt;&gt; (<span class="number">5</span>-j)</span><br><span class="line">        </span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> M.solve_left(c)[<span class="number">0</span>]]),<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># b&#x27;flag&#123;ByT3_L45R_15_Just_A_w3ak3r_LFsr!&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-
-            </div>
-        </div>
-    </div>
-</main>
-
-<script src="https://utteranc.es/client.js"
-    repo="AL3XEI709/AL3XEI709.github.io.git"
-    issue-term="pathname"
-    theme="github-light"
-    crossorigin="anonymous"
-    async>
-</script>
-
-
-    <script>
-    MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']]
-        }
-    };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
-  
-
-</div>
-        <div class="footer-wrapper"><footer>
-    <div class="footer-container">
-        <div class="footer-meta">
-            
-                <div class="footer-meta-copyright">
-                    &copy; 2024 Al3XEI709.
-                </div>
-            
-            
-                <div class="footer-meta-licenese">
-                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
-                </div>
-            
-            
-                <div class="footer-meta-rss">
-                    <a href="/atom.xml"><i class="fa-solid fa-rss"></i></a>
-                </div>
-            
-        </div>
-    </div>
-</footer>
-</div>
-    </div>
-</body>
-</html>
+<div class="post-tags"><a class="post-tag-link" href="/tags/CTF/" rel="tag">#CTF</a></div></article><div id="paginator"></div></div></div><div id="bottom-outer"><div id="bottom-inner"><hr><div><div><a>2024@ </a><a href="/atom.xml"><img src="/assets/rss.png"></a></div><div id="hexo"><a>Powered by&nbsp</a><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><a>&nbsp&&nbsp</a><a target="_blank" rel="noopener" href="https://github.com/qiantao94/hexo-theme-oasis">Oasis</a></div></div></div></div></div></body><script src="/js/oasis.js"></script></html>
