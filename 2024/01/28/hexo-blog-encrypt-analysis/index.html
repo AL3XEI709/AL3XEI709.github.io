@@ -1,9 +1,117 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>hexo_blog_encrypt_analysis │ Alexei</title><link rel="stylesheet" href="/css/oasis.css"><!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>hexo_blog_encrypt_analysis │ Alexei</title><link rel="stylesheet" href="/css/oasis.css"><meta name="generator" content="Hexo 7.0.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Alexei" type="application/atom+xml">
-</head><body><div id="content"><h1 id="title">hexo_blog_encrypt_analysis</h1><div id="menu-outer"><nav id="menu-inner"><a id="menu-back" href="javascript:history.back()">Back</a><time datetime="2024-01-28T08:05:31.000Z">2024-01-28</time></nav></div><div id="content-outer"><div id="content-inner"><article id="post"><meta name="referrer" content="no-referrer"/>
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Alexei" type="application/atom+xml">
+</head><body><div id="content"><h1 id="title">hexo_blog_encrypt_analysis</h1><div id="menu-outer"><nav id="menu-inner"><a id="menu-back" href="javascript:history.back()">Back</a><time datetime="2024-01-28T08:05:31.000Z">2024-01-28</time></nav></div><div id="content-outer"><div id="content-inner"><article id="post"><meta name="referrer" content="no-referrer">
 
 
 <p>hexo-blog-encrypt 是一个用来加密 hexo 博文的插件, 其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密, 然后在展示的时候使用密码进行解密。</p>
@@ -13,7 +121,7 @@
 <p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281749426.png" alt="image-20240128174904306"></p>
 <p>于是追踪到相关逻辑。接下来，进入分析工作。</p>
 <blockquote>
-<p>也可以从<a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-blog-encrypt%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD%E5%BC%80%E5%8F%91%E7%89%88%E6%9C%AC%EF%BC%8C%E8%BF%99%E9%87%8C%E4%BB%8E%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90%E7%9A%84%E8%A7%92%E5%BA%A6%E5%88%87%E5%85%A5%E3%80%82">https://github.com/D0n9X1n/hexo-blog-encrypt直接下载开发版本，这里从样本分析的角度切入。</a></p>
+<p>也可以从<a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-blog-encrypt直接下载开发版本，这里从样本分析的角度切入。">https://github.com/D0n9X1n/hexo-blog-encrypt直接下载开发版本，这里从样本分析的角度切入。</a></p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/Symmetric_Cryptography/blob/main/hbe.js">node_modules\hexo-blog-encrypt\lib\hbe.js</a> </p>
 <h2 id="0x02-hbe-js"><a href="#0x02-hbe-js" class="headerlink" title="0x02 hbe.js"></a>0x02 hbe.js</h2><p>部署在hexo中的文件结构长这样，很美观：</p>
@@ -23,18 +131,16 @@
 <p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281812675.png" alt="image-20240128181206595"></p>
 <ol>
 <li><p>严格模式声明：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br></pre></td></tr></table></figure>
 </li>
+</ol>
+<ol>
 <li><p>常量声明：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cryptoObj = <span class="variable language_">window</span>.<span class="property">crypto</span> || <span class="variable language_">window</span>.<span class="property">msCrypto</span>;</span><br><span class="line"><span class="keyword">const</span> storage = <span class="variable language_">window</span>.<span class="property">localStorage</span>;</span><br></pre></td></tr></table></figure>
-
 <p><code>crytoObj</code> 用于访问浏览器的加密功能，<code>storage</code> 用于本地存储。</p>
 </li>
 <li><p>加密相关参数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> storageName = <span class="string">&#x27;hexo-blog-encrypt:#&#x27;</span> + <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">pathname</span>;</span><br><span class="line"><span class="keyword">const</span> keySalt = <span class="title function_">textToArray</span>(<span class="string">&#x27;hexo-blog-encrypt的作者们都是大帅比!&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> ivSalt = <span class="title function_">textToArray</span>(<span class="string">&#x27;hexo-blog-encrypt是地表最强Hexo加密插件!&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> storageName = <span class="string">'hexo-blog-encrypt:#'</span> + <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">pathname</span>;</span><br><span class="line"><span class="keyword">const</span> keySalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt的作者们都是大帅比!'</span>);</span><br><span class="line"><span class="keyword">const</span> ivSalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt是地表最强Hexo加密插件!'</span>);</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p><code>storageName</code>: 存储加密数据的键名，基于当前页面的路径。 </p>
 </li>
@@ -45,15 +151,15 @@
 <li><p>解析 HTML 元素：</p>
 </li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mainElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;hexo-blog-encrypt&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> wrongPassMessage = mainElement.<span class="property">dataset</span>[<span class="string">&#x27;wpm&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> wrongHashMessage = mainElement.<span class="property">dataset</span>[<span class="string">&#x27;whm&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> dataElement = mainElement.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;script&#x27;</span>)[<span class="string">&#x27;hbeData&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> encryptedData = dataElement.<span class="property">innerText</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HmacDigist</span> = dataElement.<span class="property">dataset</span>[<span class="string">&#x27;hmacdigest&#x27;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mainElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">'hexo-blog-encrypt'</span>);</span><br><span class="line"><span class="keyword">const</span> wrongPassMessage = mainElement.<span class="property">dataset</span>[<span class="string">'wpm'</span>];</span><br><span class="line"><span class="keyword">const</span> wrongHashMessage = mainElement.<span class="property">dataset</span>[<span class="string">'whm'</span>];</span><br><span class="line"><span class="keyword">const</span> dataElement = mainElement.<span class="title function_">getElementsByTagName</span>(<span class="string">'script'</span>)[<span class="string">'hbeData'</span>];</span><br><span class="line"><span class="keyword">const</span> encryptedData = dataElement.<span class="property">innerText</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HmacDigist</span> = dataElement.<span class="property">dataset</span>[<span class="string">'hmacdigest'</span>];</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>mainElement</code> 获取 id 为 <code>&#39;hexo-blog-encrypt&#39;</code> 的 HTML 元素。</li>
+<li><code>mainElement</code> 获取 id 为 <code>'hexo-blog-encrypt'</code> 的 HTML 元素。</li>
 <li><code>wrongPassMessage</code> 和 <code>wrongHashMessage</code> 分别是用于显示密码错误和哈希校验失败的消息。</li>
-<li><code>dataElement</code> 获取标签名为 <code>&#39;script&#39;</code> 且具有属性 <code>&#39;hbeData&#39;</code> 的元素。</li>
+<li><code>dataElement</code> 获取标签名为 <code>'script'</code> 且具有属性 <code>'hbeData'</code> 的元素。</li>
 <li><code>encryptedData</code> 获取该元素的文本内容，即加密的数据。</li>
 <li><code>HmacDigist</code> 获取加密数据的 HMAC 值。</li>
 </ul>
-<ol start="5">
+<ol>
 <li>辅助函数：</li>
 </ol>
 <ul>
@@ -71,12 +177,11 @@
 <p>在解密过程中，除了解密数据外，还需要对解密后的明文进行 HMAC 校验，以确保数据在传输过程中未被篡改。</p>
 <p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281826027.png" alt="image-20240128182653973"></p>
 <h2 id="0x03-存在的问题"><a href="#0x03-存在的问题" class="headerlink" title="0x03 存在的问题"></a>0x03 存在的问题</h2><p>在分析源码时，我注意到一个细节：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keySalt = <span class="title function_">textToArray</span>(<span class="string">&#x27;hexo-blog-encrypt的作者们都是大帅比!&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> ivSalt = <span class="title function_">textToArray</span>(<span class="string">&#x27;hexo-blog-encrypt是地表最强Hexo加密插件!&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keySalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt的作者们都是大帅比!'</span>);</span><br><span class="line"><span class="keyword">const</span> ivSalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt是地表最强Hexo加密插件!'</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>PBKDF2算法使用的salt每次都必须是唯一的，AES算法的IV也每次都必须唯一，否则会存在字节翻转的安全问题。</p>
 <p>不过，这个漏洞已经在去年九月提了pr, 目前官方最新的版本得到了修复。</p>
 <p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281832925.png" alt="image-20240128183255815"></p>
 <p>如图，将salt改成了一次一密，并在所有主题下加入了<code>keysalt</code>和<code>ivsalt</code>两个变量。</p>
 <h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>这个插件的开发者有一定的密码学基础，在 hexo 渲染和展示时将原文用AES进行加密。但AES的具体操作上存在安全问题。</p>
-<p>这是笔者第一次做js代码的分析工作，感觉动态调试的作用相当大。与之类似地，二进制可执行文件的逆向工程也常常可以通过动态调试获取到一些关键线索。同时对于解决博客加密的问题，以前一直考虑部署在服务端情况下如何实现（并用Go写了demo），js的强大功能令我耳目一新，用短短二百余行核心代码就实现了加密&#x2F;解密&#x2F;校验的核心功能。</p>
+<p>这是笔者第一次做js代码的分析工作，感觉动态调试的作用相当大。与之类似地，二进制可执行文件的逆向工程也常常可以通过动态调试获取到一些关键线索。同时对于解决博客加密的问题，以前一直考虑部署在服务端情况下如何实现（并用Go写了demo），js的强大功能令我耳目一新，用短短二百余行核心代码就实现了加密/解密/校验的核心功能。</p>
 <div class="post-tags"><a class="post-tag-link" href="/tags/dev/" rel="tag">#dev</a></div></article><div id="paginator"></div></div></div><div id="bottom-outer"><div id="bottom-inner"><hr><div><div><a>2024@ </a><a href="/atom.xml"><img src="/assets/rss.png"></a></div><div id="hexo"><a>Powered by&nbsp</a><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><a>&nbsp&&nbsp</a><a target="_blank" rel="noopener" href="https://github.com/qiantao94/hexo-theme-oasis">Oasis</a></div></div></div></div></div></body><script src="/js/oasis.js"></script></html>

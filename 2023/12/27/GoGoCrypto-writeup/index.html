@@ -1,9 +1,117 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>GoGoCrypto_writeup │ Alexei</title><link rel="stylesheet" href="/css/oasis.css"><!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>GoGoCrypto_writeup │ Alexei</title><link rel="stylesheet" href="/css/oasis.css"><meta name="generator" content="Hexo 7.0.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Alexei" type="application/atom+xml">
-</head><body><div id="content"><h1 id="title">GoGoCrypto_writeup</h1><div id="menu-outer"><nav id="menu-inner"><a id="menu-back" href="javascript:history.back()">Back</a><time datetime="2023-12-26T16:10:28.000Z">2023-12-27</time></nav></div><div id="content-outer"><div id="content-inner"><article id="post"><meta name="referrer" content="no-referrer"/>
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Alexei" type="application/atom+xml">
+</head><body><div id="content"><h1 id="title">GoGoCrypto_writeup</h1><div id="menu-outer"><nav id="menu-inner"><a id="menu-back" href="javascript:history.back()">Back</a><time datetime="2023-12-26T16:10:28.000Z">2023-12-27</time></nav></div><div id="content-outer"><div id="content-inner"><article id="post"><meta name="referrer" content="no-referrer">
 
 <p>本人参与极客大挑战2023的出题工作，主要负责密码学板块。</p>
 <p>对于GoGoCrypto这道反响比较高的题目，这里附上题解。</p>
@@ -14,17 +122,14 @@
 <p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202312270045335.png" alt="image-20231227004502286"></p>
 <p>这种加密算法的主要攻击手段是<strong>字节翻转（bit flipping）</strong>，这种攻击的前提是一个明文分组是已知的。</p>
 <p>sid是16字节，根据填充算法：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Pad</span><span class="params">(pt []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	padlen := aes.BlockSize - (<span class="built_in">len</span>(pt) % aes.BlockSize)</span><br><span class="line">	padding := bytes.Repeat([]<span class="type">byte</span>&#123;<span class="type">byte</span>(padlen)&#125;, padlen)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">append</span>(pt, padding...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Pad</span><span class="params">(pt []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> {</span><br><span class="line">	padlen := aes.BlockSize - (<span class="built_in">len</span>(pt) % aes.BlockSize)</span><br><span class="line">	padding := bytes.Repeat([]<span class="type">byte</span>{<span class="type">byte</span>(padlen)}, padlen)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">append</span>(pt, padding...)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>可以知道填充后有两块：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">block#1 block#2</span><br><span class="line">+-----------------+-----------------+</span><br><span class="line">| sid | Padding (&quot;\x10&quot;*16) |</span><br><span class="line">+-----------------+-----------------+</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">block#1 block#2</span><br><span class="line">+-----------------+-----------------+</span><br><span class="line">| sid | Padding ("\x10"*16) |</span><br><span class="line">+-----------------+-----------------+</span><br></pre></td></tr></table></figure>
 <p>那么我们就能修改第一个密文分组，来控制解密后的第</p>
 <p>二个明文分组。具体的原理是：</p>
 <p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202312270047773.png" alt="image-20231227004700688"></p>
 <p>这一步显然会破坏第一块的明文，但并不影响我们的利用。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unpad</span><span class="params">(pt []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	padlen := <span class="type">int</span>(pt[<span class="built_in">len</span>(pt)<span class="number">-1</span>])</span><br><span class="line">	<span class="keyword">return</span> pt[:<span class="built_in">len</span>(pt)-padlen]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unpad</span><span class="params">(pt []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> {</span><br><span class="line">	padlen := <span class="type">int</span>(pt[<span class="built_in">len</span>(pt)<span class="number">-1</span>])</span><br><span class="line">	<span class="keyword">return</span> pt[:<span class="built_in">len</span>(pt)-padlen]</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>unpad函数只是将padding的最后一个字节作为padding长度，根本不检查，所以我们可以很容易的让padding长度为len(plaintext) - 1，那么我们就可以得到一个只有一个字节的明文了！</p>
 <p>因此攻击流程是：</p>
 <ul>
@@ -36,6 +141,5 @@
 </li>
 </ul>
 <p>exp:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os </span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote </span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode <span class="keyword">as</span> dec, b64encode <span class="keyword">as</span> enc </span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> xor </span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha512 </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">curl_request</span>(<span class="params">url, method=<span class="string">&#x27;GET&#x27;</span>, headers=<span class="literal">None</span>, data=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> method.upper() == <span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">            response = requests.get(url, headers=headers)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">            response = requests.post(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">&#x27;PUT&#x27;</span>:</span><br><span class="line">            response = requests.put(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">&#x27;DELETE&#x27;</span>:</span><br><span class="line">            response = requests.delete(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Unsupported HTTP method&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查请求是否成功</span></span><br><span class="line">        response.raise_for_status()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response.text</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">url = <span class="string">&#x27;http://47.109.106.62:7842/&#x27;</span> </span><br><span class="line">response = requests.get(url) </span><br><span class="line">x = <span class="built_in">str</span>(response.headers)</span><br><span class="line"></span><br><span class="line">token = unquote(x.split(<span class="string">&quot;token&quot;</span>)[<span class="number">1</span>].split(<span class="string">&quot;;&quot;</span>)[<span class="number">0</span>][<span class="number">1</span>:])  </span><br><span class="line">token = dec(token) </span><br><span class="line">nonce = unquote(x.split(<span class="string">&quot;nonce&quot;</span>)[<span class="number">1</span>].split(<span class="string">&quot;;&quot;</span>)[<span class="number">0</span>][<span class="number">1</span>:])  </span><br><span class="line"></span><br><span class="line">c1, c2 = token[:<span class="built_in">len</span>(token)//<span class="number">2</span>], token[<span class="built_in">len</span>(token)//<span class="number">2</span>:] </span><br><span class="line">c1 = xor(xor(c1,<span class="string">b&#x27;\x10&#x27;</span>*<span class="number">16</span>),<span class="string">b&#x27;\x1f&#x27;</span>*<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">form_data = &#123;</span><br><span class="line">    <span class="string">&quot;Rec&quot;</span>: enc(c1+c2).decode()</span><br><span class="line">&#125;</span><br><span class="line">res = curl_request(<span class="string">&#x27;http://47.109.106.62:7842/api/dec&#x27;</span>, method=<span class="string">&#x27;POST&#x27;</span>, headers=<span class="literal">None</span>, data=form_data) </span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">    form_data = &#123;</span><br><span class="line">        <span class="string">&quot;Password&quot;</span>: enc(<span class="built_in">chr</span>(i).encode()).decode()+enc(sha512(dec(nonce)).digest()).decode()</span><br><span class="line">    &#125;</span><br><span class="line">    res = curl_request(<span class="string">&#x27;http://47.109.106.62:7842/api/check&#x27;</span>, method=<span class="string">&#x27;POST&#x27;</span>, headers=<span class="literal">None</span>, data=form_data)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;SYC&quot;</span> <span class="keyword">in</span> <span class="built_in">str</span>(res):</span><br><span class="line">        <span class="built_in">print</span>(res) </span><br><span class="line">        <span class="keyword">break</span> </span><br><span class="line"><span class="comment"># &#123;&quot;check&quot;:&quot;true&quot;,&quot;msg&quot;:&quot;Your flag is: SYC&#123;AL3XEI_FAKE_FLAG&#125;&quot;&#125;</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os </span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote </span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode <span class="keyword">as</span> dec, b64encode <span class="keyword">as</span> enc </span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> xor </span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha512 </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">curl_request</span>(<span class="params">url, method=<span class="string">'GET'</span>, headers=<span class="literal">None</span>, data=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> method.upper() == <span class="string">'GET'</span>:</span><br><span class="line">            response = requests.get(url, headers=headers)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">'POST'</span>:</span><br><span class="line">            response = requests.post(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">'PUT'</span>:</span><br><span class="line">            response = requests.put(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">'DELETE'</span>:</span><br><span class="line">            response = requests.delete(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Unsupported HTTP method"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查请求是否成功</span></span><br><span class="line">        response.raise_for_status()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response.text</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"Error: <span class="subst">{e}</span>"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">url = <span class="string">'http://47.109.106.62:7842/'</span> </span><br><span class="line">response = requests.get(url) </span><br><span class="line">x = <span class="built_in">str</span>(response.headers)</span><br><span class="line"></span><br><span class="line">token = unquote(x.split(<span class="string">"token"</span>)[<span class="number">1</span>].split(<span class="string">";"</span>)[<span class="number">0</span>][<span class="number">1</span>:])  </span><br><span class="line">token = dec(token) </span><br><span class="line">nonce = unquote(x.split(<span class="string">"nonce"</span>)[<span class="number">1</span>].split(<span class="string">";"</span>)[<span class="number">0</span>][<span class="number">1</span>:])  </span><br><span class="line"></span><br><span class="line">c1, c2 = token[:<span class="built_in">len</span>(token)//<span class="number">2</span>], token[<span class="built_in">len</span>(token)//<span class="number">2</span>:] </span><br><span class="line">c1 = xor(xor(c1,<span class="string">b'\x10'</span>*<span class="number">16</span>),<span class="string">b'\x1f'</span>*<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">form_data = {</span><br><span class="line">    <span class="string">"Rec"</span>: enc(c1+c2).decode()</span><br><span class="line">}</span><br><span class="line">res = curl_request(<span class="string">'http://47.109.106.62:7842/api/dec'</span>, method=<span class="string">'POST'</span>, headers=<span class="literal">None</span>, data=form_data) </span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">    form_data = {</span><br><span class="line">        <span class="string">"Password"</span>: enc(<span class="built_in">chr</span>(i).encode()).decode()+enc(sha512(dec(nonce)).digest()).decode()</span><br><span class="line">    }</span><br><span class="line">    res = curl_request(<span class="string">'http://47.109.106.62:7842/api/check'</span>, method=<span class="string">'POST'</span>, headers=<span class="literal">None</span>, data=form_data)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">"SYC"</span> <span class="keyword">in</span> <span class="built_in">str</span>(res):</span><br><span class="line">        <span class="built_in">print</span>(res) </span><br><span class="line">        <span class="keyword">break</span> </span><br><span class="line"><span class="comment"># {"check":"true","msg":"Your flag is: SYC{AL3XEI_FAKE_FLAG}"}</span></span><br></pre></td></tr></table></figure>
 <div class="post-tags"><a class="post-tag-link" href="/tags/CTF/" rel="tag">#CTF</a></div></article><div id="paginator"></div></div></div><div id="bottom-outer"><div id="bottom-inner"><hr><div><div><a>2024@ </a><a href="/atom.xml"><img src="/assets/rss.png"></a></div><div id="hexo"><a>Powered by&nbsp</a><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><a>&nbsp&&nbsp</a><a target="_blank" rel="noopener" href="https://github.com/qiantao94/hexo-theme-oasis">Oasis</a></div></div></div></div></div></body><script src="/js/oasis.js"></script></html>
