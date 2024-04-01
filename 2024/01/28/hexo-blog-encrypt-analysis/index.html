@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="hexo-blog-encrypt 是一个用来加密 hexo 博文的插件, 其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密, 然后在展示的时候使用密码进行解密。">
+    <meta name="description" content="hexo-blog-encrypt 是一个用来加密 hexo 博文的插件, 其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密, 然后在展示的时候使用密码进行解密。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo_blog_encrypt_analysis">
 <meta property="og:url" content="http://example.com/2024/01/28/hexo-blog-encrypt-analysis/index.html">
 <meta property="og:site_name" content="Alexei">
-<meta property="og:description" content="hexo-blog-encrypt 是一个用来加密 hexo 博文的插件, 其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密, 然后在展示的时候使用密码进行解密。">
+<meta property="og:description" content="hexo-blog-encrypt 是一个用来加密 hexo 博文的插件, 其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密, 然后在展示的时候使用密码进行解密。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202401281608581.png">
 <meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202401281749426.png">
@@ -235,7 +235,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#x01-%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">0x01 探索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x02-hbe.js"><span class="nav-number">2.</span> <span class="nav-text">0x02 hbe.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x03-%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">0x03 存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x04-%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">0x04 总结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">0x01 探索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-hbe-js"><span class="nav-number">2.</span> <span class="nav-text">0x02 hbe.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">0x03 存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">0x04 总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -330,116 +330,77 @@ mjx-container[display="true"] + br {
     
     
     <div class="post-body" itemprop="articleBody"><meta name="referrer" content="no-referrer">
-<p>hexo-blog-encrypt 是一个用来加密 hexo 博文的插件,
-其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密,
-然后在展示的时候使用密码进行解密。</p>
+
+<p>hexo-blog-encrypt 是一个用来加密 hexo 博文的插件, 其核心的技术点就是在 hexo 渲染时将原文进行 AES 加密, 然后在展示的时候使用密码进行解密。</p>
 <span id="more"></span>
-<h2 id="x01-探索">0x01 探索</h2>
-<p>进入一个页面搜集信息。</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281608581.png" alt="image-20240128160800457">
-<figcaption aria-hidden="true">image-20240128160800457</figcaption>
-</figure>
+<h2 id="0x01-探索"><a href="#0x01-探索" class="headerlink" title="0x01 探索"></a>0x01 探索</h2><p>进入一个页面搜集信息。</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281608581.png" alt="image-20240128160800457"></p>
 <p>给请求过程下断点，开始调试：</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281749426.png" alt="image-20240128174904306">
-<figcaption aria-hidden="true">image-20240128174904306</figcaption>
-</figure>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281749426.png" alt="image-20240128174904306"></p>
 <p>于是追踪到相关逻辑。接下来，进入分析工作。</p>
 <blockquote>
-<p>也可以从https://github.com/D0n9X1n/hexo-blog-encrypt直接下载开发版本，这里从样本分析的角度切入。</p>
+<p>也可以从<a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-blog-encrypt直接下载开发版本，这里从样本分析的角度切入。">https://github.com/D0n9X1n/hexo-blog-encrypt直接下载开发版本，这里从样本分析的角度切入。</a></p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/Symmetric_Cryptography/blob/main/hbe.js">node_modules-blog-encrypt.js</a></p>
-<h2 id="x02-hbe.js">0x02 hbe.js</h2>
-<p>部署在hexo中的文件结构长这样，很美观：</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281756666.png" alt="image-20240128175614617">
-<figcaption aria-hidden="true">image-20240128175614617</figcaption>
-</figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/Symmetric_Cryptography/blob/main/hbe.js">node_modules\hexo-blog-encrypt\lib\hbe.js</a> </p>
+<h2 id="0x02-hbe-js"><a href="#0x02-hbe-js" class="headerlink" title="0x02 hbe.js"></a>0x02 hbe.js</h2><p>部署在hexo中的文件结构长这样，很美观：</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281756666.png" alt="image-20240128175614617"></p>
 <p>直奔<code>lib/hbe.js</code>:</p>
 <p>文件开头：</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281812675.png" alt="image-20240128181206595">
-<figcaption aria-hidden="true">image-20240128181206595</figcaption>
-</figure>
-<ol type="1">
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281812675.png" alt="image-20240128181206595"></p>
+<ol>
 <li><p>严格模式声明：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
 <li><p>常量声明：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cryptoObj = <span class="variable language_">window</span>.<span class="property">crypto</span> || <span class="variable language_">window</span>.<span class="property">msCrypto</span>;</span><br><span class="line"><span class="keyword">const</span> storage = <span class="variable language_">window</span>.<span class="property">localStorage</span>;</span><br></pre></td></tr></table></figure>
-<p><code>crytoObj</code> 用于访问浏览器的加密功能，<code>storage</code>
-用于本地存储。</p></li>
+<p><code>crytoObj</code> 用于访问浏览器的加密功能，<code>storage</code> 用于本地存储。</p>
+</li>
 <li><p>加密相关参数：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> storageName = <span class="string">'hexo-blog-encrypt:#'</span> + <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">pathname</span>;</span><br><span class="line"><span class="keyword">const</span> keySalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt的作者们都是大帅比!'</span>);</span><br><span class="line"><span class="keyword">const</span> ivSalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt是地表最强Hexo加密插件!'</span>);</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><code>storageName</code>:
-存储加密数据的键名，基于当前页面的路径。</p></li>
-<li><p><code>keySalt</code> 和 <code>ivSalt</code>:
-用于生成密钥和初始化向量的盐值，通过 <code>textToArray</code>
-函数将文本转换为字节数组。</p></li>
-</ul></li>
-<li><p>解析 HTML 元素：</p></li>
+<li><p><code>storageName</code>: 存储加密数据的键名，基于当前页面的路径。 </p>
+</li>
+<li><p><code>keySalt</code> 和 <code>ivSalt</code>:  用于生成密钥和初始化向量的盐值，通过 <code>textToArray</code> 函数将文本转换为字节数组。</p>
+</li>
+</ul>
+</li>
+<li><p>解析 HTML 元素：</p>
+</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mainElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">'hexo-blog-encrypt'</span>);</span><br><span class="line"><span class="keyword">const</span> wrongPassMessage = mainElement.<span class="property">dataset</span>[<span class="string">'wpm'</span>];</span><br><span class="line"><span class="keyword">const</span> wrongHashMessage = mainElement.<span class="property">dataset</span>[<span class="string">'whm'</span>];</span><br><span class="line"><span class="keyword">const</span> dataElement = mainElement.<span class="title function_">getElementsByTagName</span>(<span class="string">'script'</span>)[<span class="string">'hbeData'</span>];</span><br><span class="line"><span class="keyword">const</span> encryptedData = dataElement.<span class="property">innerText</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HmacDigist</span> = dataElement.<span class="property">dataset</span>[<span class="string">'hmacdigest'</span>];</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>mainElement</code> 获取 id 为 <code>'hexo-blog-encrypt'</code>
-的 HTML 元素。</li>
-<li><code>wrongPassMessage</code> 和 <code>wrongHashMessage</code>
-分别是用于显示密码错误和哈希校验失败的消息。</li>
-<li><code>dataElement</code> 获取标签名为 <code>'script'</code>
-且具有属性 <code>'hbeData'</code> 的元素。</li>
+<li><code>mainElement</code> 获取 id 为 <code>'hexo-blog-encrypt'</code> 的 HTML 元素。</li>
+<li><code>wrongPassMessage</code> 和 <code>wrongHashMessage</code> 分别是用于显示密码错误和哈希校验失败的消息。</li>
+<li><code>dataElement</code> 获取标签名为 <code>'script'</code> 且具有属性 <code>'hbeData'</code> 的元素。</li>
 <li><code>encryptedData</code> 获取该元素的文本内容，即加密的数据。</li>
 <li><code>HmacDigist</code> 获取加密数据的 HMAC 值。</li>
 </ul>
-<ol start="5" type="1">
+<ol>
 <li>辅助函数：</li>
 </ol>
 <ul>
 <li><code>hexToArray(s)</code>：将十六进制字符串转换为字节数组。</li>
 <li><code>textToArray(s)</code>：将文本转换为字节数组。</li>
-<li><code>arrayBufferToHex(arrayBuffer)</code>：将 ArrayBuffer
-转换为十六进制字符串。</li>
+<li><code>arrayBufferToHex(arrayBuffer)</code>：将 ArrayBuffer 转换为十六进制字符串。</li>
 <li><code>getExecutableScript(oldElem)</code>：根据给定的元素创建可执行的脚本。</li>
-<li><code>convertHTMLToElement(content)</code>：将 HTML 字符串转换为
-HTML 元素。</li>
+<li><code>convertHTMLToElement(content)</code>：将 HTML 字符串转换为 HTML 元素。</li>
 </ul>
 <p><strong>密钥的生成与处理</strong>：</p>
-<p>在代码中，使用了
-<code>getKeyMaterial</code>、<code>getHmacKey</code>、<code>getDecryptKey</code>
-和 <code>getIv</code> 函数来生成密钥和初始化向量。这些函数使用了PBKDF2
-导出密钥材料，使用 HMAC 进行数据完整性校验，以及使用 AES-CBC
-进行对称加密。</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281825214.png" alt="image-20240128182522073">
-<figcaption aria-hidden="true">image-20240128182522073</figcaption>
-</figure>
-<p>加密过程中，使用 AES-CBC 加密算法对明文进行加密，并使用 HMAC
-对加密后的密文进行签名，以确保数据的完整性。解密过程中，则先使用密码解密数据，然后校验
-HMAC，最后返回解密后的明文。</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281826731.png" alt="image-20240128182613626">
-<figcaption aria-hidden="true">image-20240128182613626</figcaption>
-</figure>
-<p>在解密过程中，除了解密数据外，还需要对解密后的明文进行 HMAC
-校验，以确保数据在传输过程中未被篡改。</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281826027.png" alt="image-20240128182653973">
-<figcaption aria-hidden="true">image-20240128182653973</figcaption>
-</figure>
-<h2 id="x03-存在的问题">0x03 存在的问题</h2>
-<p>在分析源码时，我注意到一个细节：</p>
+<p>在代码中，使用了 <code>getKeyMaterial</code>、<code>getHmacKey</code>、<code>getDecryptKey</code> 和 <code>getIv</code> 函数来生成密钥和初始化向量。这些函数使用了PBKDF2 导出密钥材料，使用 HMAC 进行数据完整性校验，以及使用 AES-CBC 进行对称加密。</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281825214.png" alt="image-20240128182522073"></p>
+<p>加密过程中，使用 AES-CBC 加密算法对明文进行加密，并使用 HMAC 对加密后的密文进行签名，以确保数据的完整性。解密过程中，则先使用密码解密数据，然后校验 HMAC，最后返回解密后的明文。</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281826731.png" alt="image-20240128182613626"></p>
+<p>在解密过程中，除了解密数据外，还需要对解密后的明文进行 HMAC 校验，以确保数据在传输过程中未被篡改。</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281826027.png" alt="image-20240128182653973"></p>
+<h2 id="0x03-存在的问题"><a href="#0x03-存在的问题" class="headerlink" title="0x03 存在的问题"></a>0x03 存在的问题</h2><p>在分析源码时，我注意到一个细节：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keySalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt的作者们都是大帅比!'</span>);</span><br><span class="line"><span class="keyword">const</span> ivSalt = <span class="title function_">textToArray</span>(<span class="string">'hexo-blog-encrypt是地表最强Hexo加密插件!'</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>PBKDF2算法使用的salt每次都必须是唯一的，AES算法的IV也每次都必须唯一，否则会存在字节翻转的安全问题。</p>
-<p>不过，这个漏洞已经在去年九月提了pr,
-目前官方最新的版本得到了修复。</p>
-<figure>
-<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281832925.png" alt="image-20240128183255815">
-<figcaption aria-hidden="true">image-20240128183255815</figcaption>
-</figure>
+<p>不过，这个漏洞已经在去年九月提了pr, 目前官方最新的版本得到了修复。</p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202401281832925.png" alt="image-20240128183255815"></p>
 <p>如图，将salt改成了一次一密，并在所有主题下加入了<code>keysalt</code>和<code>ivsalt</code>两个变量。</p>
-<h2 id="x04-总结">0x04 总结</h2>
-<p>这个插件的开发者有一定的密码学基础，在 hexo
-渲染和展示时将原文用AES进行加密。但AES的具体操作上存在安全问题。</p>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>这个插件的开发者有一定的密码学基础，在 hexo 渲染和展示时将原文用AES进行加密。但AES的具体操作上存在安全问题。</p>
 <p>这是笔者第一次做js代码的分析工作，感觉动态调试的作用相当大。与之类似地，二进制可执行文件的逆向工程也常常可以通过动态调试获取到一些关键线索。同时对于解决博客加密的问题，以前一直考虑部署在服务端情况下如何实现（并用Go写了demo），js的强大功能令我耳目一新，用短短二百余行核心代码就实现了加密/解密/校验的核心功能。</p>
 
     </div>
