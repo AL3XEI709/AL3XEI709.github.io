@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/2.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/2_3232.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/2_1616.png">
+  <link rel="mask-icon" href="/images/2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Haskell安装踩坑记录 Haskell因为其很多数学特性被广泛应用于开发中，其很多特点都和sagemath类似，但也有很多不同：   https:&#x2F;&#x2F;gitee.com&#x2F;alekseyp&#x2F;picgo&#x2F;raw&#x2F;master&#x2F;img&#x2F;202307260019472.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Haskell_Setup">
+<meta property="og:url" content="http://example.com/2022/05/07/Haskell_Setup/index.html">
+<meta property="og:site_name" content="Alexei">
+<meta property="og:description" content="Haskell安装踩坑记录 Haskell因为其很多数学特性被广泛应用于开发中，其很多特点都和sagemath类似，但也有很多不同：   https:&#x2F;&#x2F;gitee.com&#x2F;alekseyp&#x2F;picgo&#x2F;raw&#x2F;master&#x2F;img&#x2F;202307260019472.png">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202307260019472.png">
+<meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202307260021991.png">
+<meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202307260026866.png">
+<meta property="article:published_time" content="2022-05-06T16:10:28.000Z">
+<meta property="article:modified_time" content="2024-04-02T13:25:29.022Z">
+<meta property="article:author" content="Alexei">
+<meta property="article:tag" content="Other">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202307260019472.png">
+
+
+<link rel="canonical" href="http://example.com/2022/05/07/Haskell_Setup/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/05/07/Haskell_Setup/","path":"2022/05/07/Haskell_Setup/","title":"Haskell_Setup"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Haskell_Setup | Alexei</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Alexei" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Alexei</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am an otter 🦦.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section">About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section">Tags</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#haskell%E5%AE%89%E8%A3%85%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">Haskell安装踩坑记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#x1-%E5%AE%89%E8%A3%85stack"><span class="nav-number">1.1.</span> <span class="nav-text">0x1 安装Stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x2-%E5%AE%89%E8%A3%85ghc"><span class="nav-number">1.2.</span> <span class="nav-text">0x2 安装GHC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E7%90%86%E8%A7%A3%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.0 辅助理解的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEstack"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.1 配置stack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x3-%E9%85%8D%E7%BD%AEvscode"><span class="nav-number">1.3.</span> <span class="nav-text">0x3 配置vscode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#haskellvscode"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 Haskell+VScode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEghc-modhlintcode-runner"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 配置ghc-mod、hlint、Code
+Runner</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x4-%E9%85%8D%E7%BD%AEhaskell"><span class="nav-number">2.</span> <span class="nav-text">0x4 配置Haskell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x5-%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">0x5 尝试使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alexei</p>
+  <div class="site-description" itemprop="description">坚信生活的美好，保持乐观的态度。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/07/Haskell_Setup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Haskell_Setup | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Haskell_Setup
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-07 00:10:28" itemprop="dateCreated datePublished" datetime="2022-05-07T00:10:28+08:00">2022-05-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:25:29" itemprop="dateModified" datetime="2024-04-02T21:25:29+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="haskell安装踩坑记录">Haskell安装踩坑记录</h1>
+<p>Haskell因为其很多数学特性被广泛应用于开发中，其很多特点都和sagemath类似，但也有很多不同：</p>
+<figure>
+<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202307260019472.png" alt="https://gitee.com/alekseyp/picgo/raw/master/img/202307260019472.png">
+<figcaption aria-hidden="true">https://gitee.com/alekseyp/picgo/raw/master/img/202307260019472.png</figcaption>
+</figure>
+<span id="more"></span>
+<p>在刷大佬的]仓库时https://github.com/cpeikert/Lol认识了haskell，发现这么牛逼的语言的第一反应是下下来玩玩，于是有了这篇文章。</p>
+<p>本文是基于csdn文章https://blog.csdn.net/Nanzhan_17/article/details/123348982实现的，最终效果如图：</p>
+<figure>
+<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202307260021991.png" alt="https://gitee.com/alekseyp/picgo/raw/master/img/202307260021991.png">
+<figcaption aria-hidden="true">https://gitee.com/alekseyp/picgo/raw/master/img/202307260021991.png</figcaption>
+</figure>
+<p>image-20230726002150951</p>
+<p>基于vscode实现了haskell的编译运行。</p>
+<h2 id="x1-安装stack">0x1 安装Stack</h2>
+<p>打开https://docs.haskellstack.org/en/stable/，选择Windows 64-bit
+Installer进行下载。</p>
+<p>安装过程中，还会自动将Stack添加到用户环境变量 PATH 中，同时会设置
+<code>STACK_ROOT=C:\sr</code>（安装程序的默认选项，<strong>记住这个路径，后面要考</strong>），安装完成后，可以在cmd终端输入命令“stack
+–help”来检验安装是否成功。</p>
+<h2 id="x2-安装ghc">0x2 安装GHC</h2>
+<h3 id="辅助理解的概念">2.0 辅助理解的概念</h3>
+<ul>
+<li><strong>Hackage</strong>是Haskell社区的开源软件包仓库 The Haskell
+Package Repository
+，可以发布库和程序，或者使用Cabal-install这样的软件包管理器下载和安装软件包。</li>
+<li><strong>Stackage</strong>是 Stable Haskell package sets
+的缩写，即稳定一致的Haskell包集合。它是一个Haskell软件包子集的发行版，来自Hackage并和它一同被社区构建起来。Stackage存在的意义在于，它提供了兼容一致且稳定的Haskell包集，每个包都选择了一个特定版本以满足软件包集合的自洽性，从而解决包版本的冲突问题、顺利构建和运行项目。</li>
+<li><strong>Stackage</strong>提供和维护了一堆不同的大版本，每个大版本都对应一个兼容一致稳定的Haskell包集，或者说是一个LTS
+Long Term Service
+，被社区长期支持。我们选定了一个LTS之后，在下载安装时只可能发生某个包不存在的情况，就算出现冲突也能通过Stack来轻松解决，不会埋下一大堆“地雷”。</li>
+</ul>
+<h3 id="配置stack">2.1 配置stack</h3>
+<p>在cmd终端执行stack install，直接报错寄掉。</p>
+<blockquote>
+<p>这是因为下载过程中的一个网址需要翻墙才能访问，在不翻墙的情况下，需要进行换源才可以下载成功。</p>
+</blockquote>
+<p>后面的没看了，不就是翻墙吗，直接打开clash里的终端，直接开梭。</p>
+<figure>
+<img src="https://gitee.com/alekseyp/picgo/raw/master/img/202307260026866.png" alt="https://gitee.com/alekseyp/picgo/raw/master/img/202307260026866.png">
+<figcaption aria-hidden="true">https://gitee.com/alekseyp/picgo/raw/master/img/202307260026866.png</figcaption>
+</figure>
+<p>image-20230726002631839</p>
+<blockquote>
+<p>就是terminal点进去，记得用管理员权限运行</p>
+</blockquote>
+<p>后来复盘发现<code>stack install</code>根本没什么卵用，怎么搞都报错，直接不管跳下一步还没bug，于是直接开摆。</p>
+<p>运行<code>stack --resolver lts-18.27 setup</code>，完成后运行<code>stack exec -- ghc --version</code>验证是否成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stack exec -- ghc --version</span><br></pre></td></tr></table></figure>
+<p>这时候运行<code>stack exec -- ghci</code>，就可以在交互式状态下初体验haskell咯</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">stack exec -- ghci</span><br><span class="line">GHCi, version 9.4.5: https://www.haskell.org/ghc/  :? for help</span><br><span class="line">ghci&gt; 2 + 15</span><br><span class="line">17</span><br><span class="line">ghci&gt; 5/2</span><br><span class="line">2.5</span><br><span class="line">ghci&gt;:q</span><br><span class="line">Leaving GHCi.</span><br></pre></td></tr></table></figure>
+<h2 id="x3-配置vscode">0x3 配置vscode</h2>
+<h3 id="安装插件">3.1 安装插件</h3>
+<p>由于VSCode中的一部分插件版本过老，和新版本的GHC不匹配，因此下载旧版本的GHC做备用，一般来说LTS9不会出现冲突。</p>
+<p>在终端执行以下命令进行安装，并检测安装是否成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stack --resolver lts-9.21 setup</span><br><span class="line">stack --compiler ghc-8.0.2 exec -- ghc --version</span><br></pre></td></tr></table></figure>
+<p>配置完成后，在VSCode扩展中安装以下插件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Haskell ghc-mod</span><br><span class="line">Haskell-linter</span><br><span class="line">Haskell Syntax Highlighting</span><br><span class="line">Haskelly</span><br><span class="line">Haskell</span><br><span class="line">Code Runner</span><br></pre></td></tr></table></figure>
+<p>然后在终端配置插件，分别执行以下命令（这一步所需时间较长，如果一次没配置完，第二次重新打开终端时，需要重新输入chcp
+65001）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chcp 65001</span><br><span class="line">stack --resolver lts-9.21 install ghc-mod</span><br><span class="line">stack --resolver lts-9.21 install hlint</span><br><span class="line">stack --resolver lts-9.21 install intero QuickCheck stack-run</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上这些安装完成后，终端显示如下，不用管那个Warning，但是要记住他那个路径
+<code>C:\Users\Alexei_P\AppData\Roaming\local\bin</code>，Stack安装的所有扩展应该都在这个路径中，这个路径在配置settings.json时需要用到。</p>
+<h3 id="haskellvscode">3.2 Haskell+VScode</h3>
+<h3 id="配置ghc-modhlintcode-runner">3.3 配置ghc-mod、hlint、Code
+Runner</h3>
+<p>打开vscode的settings.json，加入以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* Haskell ghc-mod配置 */</span><br><span class="line">"haskell.ghcMod.executablePath": "stack",</span><br><span class="line">/* Haskell-linter配置 */</span><br><span class="line">"haskell.hlint.executablePath": "C:\\Users\\hp\\AppData\\Roaming\\local\\bin\\hlint.exe",</span><br><span class="line">/* code-runner配置 */</span><br><span class="line">"code-runner.executorMap": {</span><br><span class="line">    "haskell": "cd $dir &amp;&amp; stack runhaskell $fileName"</span><br><span class="line">},</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="x4-配置haskell">0x4 配置Haskell</h1>
+<p>把以下代码加到Haskell安装文件夹下的stack.yaml中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ghc-options:</span><br><span class="line">  '$everything': -haddock # 一个从带注释的Haskell源代码自动生成文档的工具</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="x5-尝试使用">0x5 尝试使用</h1>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1.hs{-    hello world-}add :: Integer -&gt; Integer -&gt; Integeradd x y = x + ymain = do   putStrLn "The addition of the two numbers is:"   print(add 2 5)</span></span><br></pre></td></tr></table></figure>
+<p>终端输入<code>stack runhaskell 1.hs</code></p>
+<p>成功输出</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Other/" rel="tag"># Other</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/04/LFSR_Calculation/" rel="prev" title="LFSR_Calculation">
+                  <i class="fa fa-angle-left"></i> LFSR_Calculation
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/13/%E6%B1%82%E8%A7%A3e%E4%B8%8Ephi%E4%B8%8D%E4%BA%92%E7%B4%A0%E7%9A%84RSA/" rel="next" title="求解e与phi不互素的RSA">
+                  求解e与phi不互素的RSA <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Alexei</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
