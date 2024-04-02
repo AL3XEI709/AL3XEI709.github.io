@@ -235,7 +235,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -317,8 +317,8 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <meta name="referrer" content="no-referrer">
-
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>ECDSA代表椭圆曲线数字签名算法，与旧的RSA签名相比，ECDSA签名长度更短，因此应用面较广，例如各种JWT场景。服务器使用java15~18版本的ECDSA，会受到攻击者绕过的影响。由于ECDSA未对提交的r和s值做仔细的检查，攻击者可通过将为0的r和s作为参数提交给服务器，实现绕过验签的过程。</p>
+<h2 id="介绍">介绍</h2>
+<p>ECDSA代表椭圆曲线数字签名算法，与旧的RSA签名相比，ECDSA签名长度更短，因此应用面较广，例如各种JWT场景。服务器使用java15~18版本的ECDSA，会受到攻击者绕过的影响。由于ECDSA未对提交的r和s值做仔细的检查，攻击者可通过将为0的r和s作为参数提交给服务器，实现绕过验签的过程。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/27/CVE-2022-21449-Brief-analysis/#more" rel="contents">
@@ -388,7 +388,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-03-31 22:55:32" itemprop="dateModified" datetime="2024-03-31T22:55:32+08:00">2024-03-31</time>
+      <time title="Modified: 2024-04-02 20:59:04" itemprop="dateModified" datetime="2024-04-02T20:59:04+08:00">2024-04-02</time>
     </span>
 
   
@@ -402,37 +402,610 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <meta name="referrer" content="no-referrer">
-
 <p>本人参与极客大挑战2023的出题工作，主要负责密码学板块。</p>
 <p>对于GoGoCrypto这道反响比较高的题目，这里附上题解。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/Geek23/blob/main/GoGoCrypto/GoGoCrypto_setup.zip">题目源码</a></p>
-<p>这题用Golang写了一个Flag Folder的交互，流程大概长这样：</p>
-<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202312270044077.png" alt="image-20231227004357980"></p>
-<p>加解密采用的算法是AES的CBC mod。</p>
-<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202312270045335.png" alt="image-20231227004502286"></p>
-<p>这种加密算法的主要攻击手段是<strong>字节翻转（bit flipping）</strong>，这种攻击的前提是一个明文分组是已知的。</p>
-<p>sid是16字节，根据填充算法：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Pad</span><span class="params">(pt []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> {</span><br><span class="line">	padlen := aes.BlockSize - (<span class="built_in">len</span>(pt) % aes.BlockSize)</span><br><span class="line">	padding := bytes.Repeat([]<span class="type">byte</span>{<span class="type">byte</span>(padlen)}, padlen)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">append</span>(pt, padding...)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>可以知道填充后有两块：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">block#1 block#2</span><br><span class="line">+-----------------+-----------------+</span><br><span class="line">| sid | Padding ("\x10"*16) |</span><br><span class="line">+-----------------+-----------------+</span><br></pre></td></tr></table></figure>
-<p>那么我们就能修改第一个密文分组，来控制解密后的第</p>
-<p>二个明文分组。具体的原理是：</p>
-<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202312270047773.png" alt="image-20231227004700688"></p>
-<p>这一步显然会破坏第一块的明文，但并不影响我们的利用。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unpad</span><span class="params">(pt []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> {</span><br><span class="line">	padlen := <span class="type">int</span>(pt[<span class="built_in">len</span>(pt)<span class="number">-1</span>])</span><br><span class="line">	<span class="keyword">return</span> pt[:<span class="built_in">len</span>(pt)-padlen]</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>unpad函数只是将padding的最后一个字节作为padding长度，根本不检查，所以我们可以很容易的让padding长度为len(plaintext) - 1，那么我们就可以得到一个只有一个字节的明文了！</p>
-<p>因此攻击流程是：</p>
-<ul>
-<li><p>修改密文并上传</p>
-</li>
-<li><p>服务端解密，得到只有一个字节的明文</p>
-</li>
-<li><p>遍历所有明文（254），必然得到flag。</p>
-</li>
-</ul>
-<p>exp:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os </span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote </span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode <span class="keyword">as</span> dec, b64encode <span class="keyword">as</span> enc </span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> xor </span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha512 </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">curl_request</span>(<span class="params">url, method=<span class="string">'GET'</span>, headers=<span class="literal">None</span>, data=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> method.upper() == <span class="string">'GET'</span>:</span><br><span class="line">            response = requests.get(url, headers=headers)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">'POST'</span>:</span><br><span class="line">            response = requests.post(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">'PUT'</span>:</span><br><span class="line">            response = requests.put(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">elif</span> method.upper() == <span class="string">'DELETE'</span>:</span><br><span class="line">            response = requests.delete(url, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Unsupported HTTP method"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查请求是否成功</span></span><br><span class="line">        response.raise_for_status()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response.text</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"Error: <span class="subst">{e}</span>"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">url = <span class="string">'http://47.109.106.62:7842/'</span> </span><br><span class="line">response = requests.get(url) </span><br><span class="line">x = <span class="built_in">str</span>(response.headers)</span><br><span class="line"></span><br><span class="line">token = unquote(x.split(<span class="string">"token"</span>)[<span class="number">1</span>].split(<span class="string">";"</span>)[<span class="number">0</span>][<span class="number">1</span>:])  </span><br><span class="line">token = dec(token) </span><br><span class="line">nonce = unquote(x.split(<span class="string">"nonce"</span>)[<span class="number">1</span>].split(<span class="string">";"</span>)[<span class="number">0</span>][<span class="number">1</span>:])  </span><br><span class="line"></span><br><span class="line">c1, c2 = token[:<span class="built_in">len</span>(token)//<span class="number">2</span>], token[<span class="built_in">len</span>(token)//<span class="number">2</span>:] </span><br><span class="line">c1 = xor(xor(c1,<span class="string">b'\x10'</span>*<span class="number">16</span>),<span class="string">b'\x1f'</span>*<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">form_data = {</span><br><span class="line">    <span class="string">"Rec"</span>: enc(c1+c2).decode()</span><br><span class="line">}</span><br><span class="line">res = curl_request(<span class="string">'http://47.109.106.62:7842/api/dec'</span>, method=<span class="string">'POST'</span>, headers=<span class="literal">None</span>, data=form_data) </span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">    form_data = {</span><br><span class="line">        <span class="string">"Password"</span>: enc(<span class="built_in">chr</span>(i).encode()).decode()+enc(sha512(dec(nonce)).digest()).decode()</span><br><span class="line">    }</span><br><span class="line">    res = curl_request(<span class="string">'http://47.109.106.62:7842/api/check'</span>, method=<span class="string">'POST'</span>, headers=<span class="literal">None</span>, data=form_data)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">"SYC"</span> <span class="keyword">in</span> <span class="built_in">str</span>(res):</span><br><span class="line">        <span class="built_in">print</span>(res) </span><br><span class="line">        <span class="keyword">break</span> </span><br><span class="line"><span class="comment"># {"check":"true","msg":"Your flag is: SYC{AL3XEI_FAKE_FLAG}"}</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/27/GoGoCrypto-writeup/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/20/exp-of-the-Genie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/20/exp-of-the-Genie/" class="post-title-link" itemprop="url">exp-of-the-Genie</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-03-20 23:29:33" itemprop="dateCreated datePublished" datetime="2023-03-20T23:29:33+08:00">2023-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:06:04" itemprop="dateModified" datetime="2024-04-02T21:06:04+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="x1-abstract-deploy">0x1 Abstract &amp; Deploy</h3>
+<blockquote>
+<p>Julia: 一个面向科学计算的高性能动态高级程序设计语言。</p>
+<p>Genie: 基于Julia开发的全栈Web 框架。</p>
+<p>exploit：上传文件名从<code>sessions/\x1</code>到<code>sessions/\xFF</code>的序列化数据，伪造解密后只有1byte的session，触发反序列化。</p>
+<p>keywords: 反序列化, session id, AES bit flipping attack</p>
+<p>0Day: YES</p>
+<p>author: <a target="_blank" rel="noopener" href="https://github.com/maple3142">maple3142</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/splitline">splitline</a></p>
+<p>CTF Challenge: TSJCTF 2022 Genie(Crypto &amp; Web)</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/exp-of-the-Genie/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/08/2022-Summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/01/08/2022-Summary/" class="post-title-link" itemprop="url">2022_Year_End_Summary</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-01-08 23:58:45" itemprop="dateCreated datePublished" datetime="2023-01-08T23:58:45+08:00">2023-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:00:20" itemprop="dateModified" datetime="2024-04-02T21:00:20+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>2022过的蛮充实的，虽然在不少比赛中被狠狠拷打（比赛完后也没挨个复现），但还是达成了不少预定目标。总的来说过得去。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/01/08/2022-Summary/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/11/AMM_algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/11/AMM_algorithm/" class="post-title-link" itemprop="url">AMM_algorithm</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-10-11 23:23:10" itemprop="dateCreated datePublished" datetime="2022-10-11T23:23:10+08:00">2022-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:07:00" itemprop="dateModified" datetime="2024-04-02T21:07:00+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="x01-how-come">0x01 How come?</h2>
+<p>昨天拿到一道奇怪的RSA题目。乍一看很简单，pq都给出来了，仔细分析有问题：phi%e居然等于0!?顿时觉得有点意思。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/11/AMM_algorithm/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/11/Interactive_Cryptography/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/11/Interactive_Cryptography/" class="post-title-link" itemprop="url">Interactive_Cryptography</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-10-11 23:23:00" itemprop="dateCreated datePublished" datetime="2022-10-11T23:23:00+08:00">2022-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:15:18" itemprop="dateModified" datetime="2024-04-02T21:15:18+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>经过一个假期的不断摸索，终于把Crypto交互的部分搞明白了。本篇记录了Crypto交互题的解题过程，以及一道交互题是如何实现其功能的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/11/Interactive_Cryptography/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/13/%E6%B1%82%E8%A7%A3e%E4%B8%8Ephi%E4%B8%8D%E4%BA%92%E7%B4%A0%E7%9A%84RSA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/13/%E6%B1%82%E8%A7%A3e%E4%B8%8Ephi%E4%B8%8D%E4%BA%92%E7%B4%A0%E7%9A%84RSA/" class="post-title-link" itemprop="url">求解e与phi不互素的RSA</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-13 10:10:10" itemprop="dateCreated datePublished" datetime="2022-05-13T10:10:10+08:00">2022-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:13:27" itemprop="dateModified" datetime="2024-04-02T21:13:27+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>RSA算法能正确加解密的前提之一，是作为加密钥的<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.054ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 466 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g></g></g></svg></mjx-container></span>需要与<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.118ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2262 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D719" d="M409 688Q413 694 421 694H429H442Q448 688 448 686Q448 679 418 563Q411 535 404 504T392 458L388 442Q388 441 397 441T429 435T477 418Q521 397 550 357T579 260T548 151T471 65T374 11T279 -10H275L251 -105Q245 -128 238 -160Q230 -192 227 -198T215 -205H209Q189 -205 189 -198Q189 -193 211 -103L234 -11Q234 -10 226 -10Q221 -10 206 -8T161 6T107 36T62 89T43 171Q43 231 76 284T157 370T254 422T342 441Q347 441 348 445L378 567Q409 686 409 688ZM122 150Q122 116 134 91T167 53T203 35T237 27H244L337 404Q333 404 326 403T297 395T255 379T211 350T170 304Q152 276 137 237Q122 191 122 150ZM500 282Q500 320 484 347T444 385T405 400T381 404H378L332 217L284 29Q284 27 285 27Q293 27 317 33T357 47Q400 66 431 100T475 170T494 234T500 282Z"></path></g><g data-mml-node="mo" transform="translate(596,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(985,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(1873,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>互素。为什么此条件要严格满足呢？如果不满足会有什么问题？特殊情形下的RSA又该如何求解？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/13/%E6%B1%82%E8%A7%A3e%E4%B8%8Ephi%E4%B8%8D%E4%BA%92%E7%B4%A0%E7%9A%84RSA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/LFSR_Calculation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/04/LFSR_Calculation/" class="post-title-link" itemprop="url">LFSR_Calculation</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-04 15:15:15" itemprop="dateCreated datePublished" datetime="2022-03-04T15:15:15+08:00">2022-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:17:10" itemprop="dateModified" datetime="2024-04-02T21:17:10+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="x01-an-extend-of-my-previous-blog">0x01 An extend of my previous
+blog</h2>
+<p>上个博客研究了矩阵对递归的实现，本就应该想到与lfsr的联系的，但直到最近做题才想到。参考学习群大佬的博客<a target="_blank" rel="noopener" href="https://canzik.github.io/2022/03/09/关于LFSR的原理以及攻击方式/">Canzik's
+Blog || 关于LFSR的原理以及攻击方式</a>，用矩阵实现了lfsr。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/04/LFSR_Calculation/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/02/Enigma_machine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/02/Enigma_machine/" class="post-title-link" itemprop="url">Enigma_machine</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-02-02 20:15:36" itemprop="dateCreated datePublished" datetime="2022-02-02T20:15:36+08:00">2022-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-02 21:15:31" itemprop="dateModified" datetime="2024-04-02T21:15:31+08:00">2024-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://www.antiquesandthearts.com/wp-content/uploads/2016/12/M4-Enigma-machine-for-German-naval-use..jpg" alt="查看源图像" style="zoom:5%;"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/02/Enigma_machine/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
