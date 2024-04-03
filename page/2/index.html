@@ -235,7 +235,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -258,6 +258,101 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/27/CVE-2023-38408-Brief-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alexei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alexei">
+      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/12/27/CVE-2023-38408-Brief-analysis/" class="post-title-link" itemprop="url">CVE-2023-38408-Brief-analysis</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-27 23:56:20" itemprop="dateCreated datePublished" datetime="2023-12-27T23:56:20+08:00">2023-12-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-01 14:34:25" itemprop="dateModified" datetime="2024-04-01T14:34:25+08:00">2024-04-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <meta name="referrer" content="no-referrer">
+<figure>
+<img src="https://iototsecnews.files.wordpress.com/2023/07/openssh.png?w=1008" alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="介绍">介绍</h2>
+<p>SSH（Secure
+Shell）是一种加密的网络传输协议。主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。OpenSSH软件套件负责SSH协议的实现。</p>
+<p>23年七月爆出来OpenSSH(9.3p2版本以前)的一个CVE，用户使用 SSH-Agent
+代理转发功能连接攻击者恶意服务器时，由于 SSH-Agent
+未对加载的共享库进行限制，攻击者可通过将恶意共享库作为参数传递给
+SSH-Agent 并通过其调用 dlopen/dlclose 函数加载 /
+卸载位于用户客户端主机的共享库，实现远程代码执行。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/27/CVE-2023-38408-Brief-analysis/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1003,92 +1098,6 @@ mjx-container[display="true"] + br {
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/07/Haskell_Setup/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/LFSR_Calculation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/04/LFSR_Calculation/" class="post-title-link" itemprop="url">LFSR_Calculation</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-03-04 15:15:15" itemprop="dateCreated datePublished" datetime="2022-03-04T15:15:15+08:00">2022-03-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-02 21:17:10" itemprop="dateModified" datetime="2024-04-02T21:17:10+08:00">2024-04-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="x01-an-extend-of-my-previous-blog">0x01 An extend of my previous
-blog</h2>
-<p>上个博客研究了矩阵对递归的实现，本就应该想到与lfsr的联系的，但直到最近做题才想到。参考学习群大佬的博客<a target="_blank" rel="noopener" href="https://canzik.github.io/2022/03/09/关于LFSR的原理以及攻击方式/">Canzik's
-Blog || 关于LFSR的原理以及攻击方式</a>，用矩阵实现了lfsr。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/04/LFSR_Calculation/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
