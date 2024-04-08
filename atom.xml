@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-04-03T08:14:48.217Z</updated>
+  <updated>2024-04-08T16:07:35.060Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2030/01/01/News/"/>
     <id>http://example.com/2030/01/01/News/</id>
     <published>2029-12-31T16:00:00.000Z</published>
-    <updated>2024-04-03T08:14:48.217Z</updated>
+    <updated>2024-04-08T16:07:35.060Z</updated>
     
     <content type="html"><![CDATA[<h1 id="news">News</h1><p>这篇置顶博文记录我正在做的工作，随时更新。</p><hr /><p><ahref="https://al3xei709.github.io/2024/01/29/Crypto-Papers-Read-Recurrent/">Link0x04</a> 复现论文 The Hidden Number Problem with Small UnknownMultipliers: Cryptanalyzing MEGA in Six Queries and Other Applications。</p><blockquote><p>安全研究员最近提出了针对云存储提供商 MEGA的一种攻击。该攻击通过伪装恶意服务器，在与客户端进行 512次登录交互后得到 RSA 私钥。这篇论文展示了由 MEGA协议漏洞获取更多隐私的攻击攻击，只需与客户端进行 6次登录交互即可恢复私钥。该联合攻击涉及多种密码分析技术。特别的，这篇论文还提出了一种隐藏数问题变体的解法，该变体涉及小的未知乘子。</p></blockquote>]]></content>
     
@@ -37,7 +37,7 @@ href=&quot;https://al3xei709.github.io/2024/01/29/Crypto-Papers-Read-Recurr</sum
     
     
     
-    <category term="Other" scheme="http://example.com/categories/Other/"/>
+    <category term="other" scheme="http://example.com/categories/other/"/>
     
     
   </entry>
@@ -197,7 +197,7 @@ May的&lt;strong&gt;针对小私钥指数的攻击&lt;/strong&gt;，以及由上
     <link href="http://example.com/2024/01/25/Days-Without-Internet/"/>
     <id>http://example.com/2024/01/25/Days-Without-Internet/</id>
     <published>2024-01-25T15:06:44.000Z</published>
-    <updated>2024-04-03T08:13:26.956Z</updated>
+    <updated>2024-04-08T16:07:49.684Z</updated>
     
     <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <script id="hbeData" type="hbeData" data-hmacdigest="5aac323097e0680746e67f9af596646daeceaceef54ed6e16b10db77c269976a">1ccc3afe3f8e8a6933effeff5e279474c2417453a25a8307515326d3db0569414e64737bf60e308564b915b6ad25d51d906a822e536ddc1a5d33f29c768c3eb83ef236e76478583ebe0ff63be035bdc1037c203acdc3dfcc56eeace0ffd46825cbd1625a741e584df47b14c3f01bb132b9831f06ce8c8997da66a1048bea9ef0269b4e34ca45b4d7e0497621d8a7ede2e3084aa1347c793f4e0807a0bb55f13852d40910b8bee89865b736c7a4168279fc787881231f7140635a0fb79ccdec734e66e288606753dbfdd9982238887c437112d3ba3f29c695054162130bbfe7c1233dec51575129e3f4c656c9cf62bdfeaa2869274c5082a9a402c482aa728cd43197766fdb328da5772174aff8be31f6639c51a4b69a9bb6b3950c3e3562fd2123a0dd835aa0f81c9a0196d47a6b420d1dc5a55def0bf7dd5d56a460190faeba6b8b85cc867d46dd94873980020daa5df4a286403e06a6a125f9b2a0644d209537aeae99d1749d56bb8373d0ea988e907417b488ccee15710848de29f66122aec88c231229850253891e5147d5cdf6aa482f0e61ec088f58cfc7d00553c93443b61a55d8d5c6999b3c6566c361718677a85b6a568b42e19815d4b37ebf336bde4a4d2c40e07911421a9b4eb3ffeec5ab6970bde779a2757ec8472ee6f3325275135cdd340ac12593667f621544a5585ec742f3d27f13dea320abbab00ffda93a04372858c27b121fb1d53848146852950061aa4a8d19dc14f7ceb667c551f60005938657f46f480f0bc4f562a3a841b3cf9ccb07dd56599d2280906352d5cce9ac79f6de1c28b38bc1866dade10c2442c64d9890d1a2dd37c1e549ea0d36d68db37eb3ebc27a9742060a444987c5af8140db2b20976971c5275f0452be1151e05a6bd1c9b71bd769042c073b972842899ea8d23a4c78a190c2eb54d7a592a23cb7fceabe30a552da0e9272862bc2b2b680600f4f50c6862f4b616081dd1cdfa46a1022cb4183b468f304e224d476eb1d8e74c0f36285cfe2c17ecfc32f64f63427642b44de2d2c15fa1d6169b272392b34e1ca65e15ccca93e4c38dd4d664ae13df1ddedf5c5ee5b4910ae22d552334a037f951b92cb29e67eb7759a1700f4e48ac5f31cc57e9e83fd0b6c4f26c25ce195c0734c7173bf1c1eca0400c747791cf5c747c3928b4d36ea6ea3500ff264b9e8744639de20900b7136036ad68a954f0233383aac85a47c19f116f828e1afd66535375a71dd42781bc99aea0fa5de4ee0beb8235768810249c9718941ec807629406e88b51cc03c3922da42f31a72f59bdfdbdec133ae9dbaf3af248f17f2f1b00e370fc07623c1bdd4cc429ceab7b16849378b2886df1b86e468470987eb771606bfd3bf7c9d95b7243fe1846b3ba913b4a1e894535a29afb78f0078898d2a</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">需要密码阅读捏。</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
     
@@ -206,7 +206,7 @@ May的&lt;strong&gt;针对小私钥指数的攻击&lt;/strong&gt;，以及由上
     
     
     
-    <category term="Other" scheme="http://example.com/categories/Other/"/>
+    <category term="other" scheme="http://example.com/categories/other/"/>
     
     
   </entry>
