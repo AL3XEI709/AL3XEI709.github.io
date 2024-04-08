@@ -19,25 +19,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="坚信生活的美好，保持乐观的态度。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alexei">
-<meta property="og:url" content="http://example.com/page/2/index.html">
+    <meta name="description" content="0x01 RSA 123A&#x3D;(((y%x)**5)%(x%y))**2019+y**316+(y+1)&#x2F;xp&#x3D;next_prime(z*x*y)q&#x3D;next_prime(z) p,q能够分解得到。 最开始还想用z3库来解，但是解不出来。 wp里面的最优解法就是爆破。 exp: 12345678910111213141516171819202122232425import gmpy2 a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF_Notes_0x2">
+<meta property="og:url" content="http://example.com/2023/04/08/CTF-Notes-0x2/index.html">
 <meta property="og:site_name" content="Alexei">
-<meta property="og:description" content="坚信生活的美好，保持乐观的态度。">
+<meta property="og:description" content="0x01 RSA 123A&#x3D;(((y%x)**5)%(x%y))**2019+y**316+(y+1)&#x2F;xp&#x3D;next_prime(z*x*y)q&#x3D;next_prime(z) p,q能够分解得到。 最开始还想用z3库来解，但是解不出来。 wp里面的最优解法就是爆破。 exp: 12345678910111213141516171819202122232425import gmpy2 a">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201113211542536.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYxNzkwMg==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2023-04-08T15:44:31.000Z">
+<meta property="article:modified_time" content="2024-04-08T16:03:12.855Z">
 <meta property="article:author" content="Alexei">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201113211542536.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYxNzkwMg==,size_16,color_FFFFFF,t_70#pic_center">
 
 
-<link rel="canonical" href="http://example.com/page/2/">
+<link rel="canonical" href="http://example.com/2023/04/08/CTF-Notes-0x2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/04/08/CTF-Notes-0x2/","path":"2023/04/08/CTF-Notes-0x2/","title":"CTF_Notes_0x2"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Alexei</title>
+<title>CTF_Notes_0x2 | Alexei</title>
   
 
 
@@ -183,7 +187,7 @@ mjx-container[display="true"] + br {
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Alexei</h1>
+      <p class="site-title">Alexei</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">I am an otter 🦦.</p>
@@ -210,7 +214,7 @@ mjx-container[display="true"] + br {
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -223,6 +227,8 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#x01-rsa"><span class="nav-number">1.</span> <span class="nav-text">0x01 RSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x02-feistival"><span class="nav-number">2.</span> <span class="nav-text">0x02 Feistival</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x03-tony-stark-needs-help"><span class="nav-number">3.</span> <span class="nav-text">0x03 Tony Stark Needs Help</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x04-tony-stark-needs-help-again"><span class="nav-number">4.</span> <span class="nav-text">0x04 Tony Stark Needs Help
+Again</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x05-easypyc"><span class="nav-number">5.</span> <span class="nav-text">0x05 easypyc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x06-rsa-what"><span class="nav-number">6.</span> <span class="nav-text">0x06 RSA &amp; what</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x07-babyrsa"><span class="nav-number">7.</span> <span class="nav-text">0x07 babyRSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x08-you_raise_me_up"><span class="nav-number">8.</span> <span class="nav-text">0x08 you_raise_me_up</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x09-%E5%9D%8F%E8%9B%8B%E6%98%AF%E9%9B%B7%E5%AE%BE"><span class="nav-number">9.</span> <span class="nav-text">0x09 坏蛋是雷宾</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x0a-ezrsa"><span class="nav-number">10.</span> <span class="nav-text">0x0a EzRSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x0b-polybius"><span class="nav-number">11.</span> <span class="nav-text">0x0b Polybius</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x0c-d3factor"><span class="nav-number">12.</span> <span class="nav-text">0x0c d3factor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x0d-babyrsa"><span class="nav-number">13.</span> <span class="nav-text"># 0x0d babyrsa</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x0e-%E8%AE%A4%E6%B8%85%E5%BD%A2%E5%8A%BF%E5%BB%BA%E7%AB%8B%E4%BF%A1%E5%BF%83"><span class="nav-number">14.</span> <span class="nav-text">0x0e 认清形势，建立信心</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x0f-ezrsa"><span class="nav-number">15.</span> <span class="nav-text">0x0f ezRSA</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -257,308 +263,17 @@ mjx-container[display="true"] + br {
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/27/CVE-2023-38408-Brief-analysis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/27/CVE-2023-38408-Brief-analysis/" class="post-title-link" itemprop="url">CVE-2023-38408-Brief-analysis</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-12-27 23:56:20" itemprop="dateCreated datePublished" datetime="2023-12-27T23:56:20+08:00">2023-12-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:13:23" itemprop="dateModified" datetime="2024-04-03T16:13:23+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vul/" itemprop="url" rel="index"><span itemprop="name">vul</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <meta name="referrer" content="no-referrer">
-<figure>
-<img src="https://iototsecnews.files.wordpress.com/2023/07/openssh.png?w=1008" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h2 id="介绍">介绍</h2>
-<p>SSH（Secure
-Shell）是一种加密的网络传输协议。主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。OpenSSH软件套件负责SSH协议的实现。</p>
-<p>23年七月爆出来OpenSSH(9.3p2版本以前)的一个CVE，用户使用 SSH-Agent
-代理转发功能连接攻击者恶意服务器时，由于 SSH-Agent
-未对加载的共享库进行限制，攻击者可通过将恶意共享库作为参数传递给
-SSH-Agent 并通过其调用 dlopen/dlclose 函数加载 /
-卸载位于用户客户端主机的共享库，实现远程代码执行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/27/CVE-2023-38408-Brief-analysis/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/27/CVE-2022-21449-Brief-analysis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/27/CVE-2022-21449-Brief-analysis/" class="post-title-link" itemprop="url">CVE-2022-21449-Brief-analysis</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-12-27 15:36:51" itemprop="dateCreated datePublished" datetime="2023-12-27T15:36:51+08:00">2023-12-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:13:18" itemprop="dateModified" datetime="2024-04-03T16:13:18+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vul/" itemprop="url" rel="index"><span itemprop="name">vul</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <meta name="referrer" content="no-referrer">
-<h2 id="介绍">介绍</h2>
-<p>ECDSA代表椭圆曲线数字签名算法，与旧的RSA签名相比，ECDSA签名长度更短，因此应用面较广，例如各种JWT场景。服务器使用java15~18版本的ECDSA，会受到攻击者绕过的影响。由于ECDSA未对提交的r和s值做仔细的检查，攻击者可通过将为0的r和s作为参数提交给服务器，实现绕过验签的过程。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/27/CVE-2022-21449-Brief-analysis/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/27/GoGoCrypto-writeup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/27/GoGoCrypto-writeup/" class="post-title-link" itemprop="url">GoGoCrypto_writeup</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-12-27 00:10:28" itemprop="dateCreated datePublished" datetime="2023-12-27T00:10:28+08:00">2023-12-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:13:45" itemprop="dateModified" datetime="2024-04-03T16:13:45+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <meta name="referrer" content="no-referrer">
-<p>本人参与极客大挑战2023的出题工作，主要负责密码学板块。</p>
-<p>对于GoGoCrypto这道反响比较高的题目，这里附上题解。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/27/GoGoCrypto-writeup/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/08/CTF-Notes-0x2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -572,13 +287,13 @@ SSH-Agent 并通过其调用 dlopen/dlclose 函数加载 /
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
+      <meta itemprop="name" content="CTF_Notes_0x2 | Alexei">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/08/CTF-Notes-0x2/" class="post-title-link" itemprop="url">CTF_Notes_0x2</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          CTF_Notes_0x2
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -616,8 +331,7 @@ SSH-Agent 并通过其调用 dlopen/dlclose 函数加载 /
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="x01-rsa">0x01 RSA</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="x01-rsa">0x01 RSA</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A=(((y%x)**<span class="number">5</span>)%(x%y))**<span class="number">2019</span>+y**<span class="number">316</span>+(y+<span class="number">1</span>)/x</span><br><span class="line">p=next_prime(z*x*y)</span><br><span class="line">q=next_prime(z)</span><br></pre></td></tr></table></figure>
 <p>p,q能够分解得到。</p>
 <p>最开始还想用z3库来解，但是解不出来。</p>
@@ -832,7 +546,6 @@ flag:解出明文后，请加上BJD{}</p>
 <p>简单copper即可复原剩下的 bits</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">n = <span class="number">0xe78ab40c343d4985c1de167e80ba2657c7ee8c2e26d88e0026b68fe400224a3bd7e2a7103c3b01ea4d171f5cf68c8f00a64304630e07341cde0bc74ef5c88dcbb9822765df53182e3f57153b5f93ff857d496c6561c3ddbe0ce6ff64ba11d4edfc18a0350c3d0e1f8bd11b3560a111d3a3178ed4a28579c4f1e0dc17cb02c3ac38a66a230ba9a2f741f9168641c8ce28a3a8c33d523553864f014752a04737e555213f253a72f158893f80e631de2f55d1d0b2b654fc7fa4d5b3d95617e8253573967de68f6178f78bb7c4788a3a1e9778cbfc7c7fa8beffe24276b9ad85b11eed01b872b74cdc44959059c67c18b0b7a1d57512319a5e84a9a0735fa536f1b3</span></span><br><span class="line">p = <span class="number">0xf376c68d76f4ab9b4d247852ef07159a09eeac920ac89148a8dee4f3c359a291b6bf03ab9258ca64783c416fcfeade13cf3c18a7677c29283c7fc6bfcdbba1d6fecbe9e243cc2e3ef0fe60035e1dbc727f3522bfab2bc28d5e29bfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span></span><br><span class="line">c = <span class="number">0xd7f6c90512bc9494370c3955ff3136bb245a6d1095e43d8636f66f11db525f2063b14b2a4363a96e6eb1bea1e9b2cc62b0cae7659f18f2b8e41fca557281a1e859e8e6b35bd114655b6bf5e454753653309a794fa52ff2e79433ca4bbeb1ab9a78ec49f49ebee2636abd9dd9b80306ae1b87a86c8012211bda88e6e14c58805feb6721a01481d1a7031eb3333375a81858ff3b58d8837c188ffcb982a631e1a7a603b947a6984bd78516c71cfc737aaba479688d56df2c0952deaf496a4eb3f603a46a90efbe9e82a6aef8cfb23e5fcb938c9049b227b7f15c878bd99b61b6c56db7dfff43cd457429d5dcdb5fe314f1cdf317d0c5202bad6a9770076e9b25b1</span></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f=x+p</span><br><span class="line">roots=f.small_roots(X=<span class="number">2</span>**<span class="number">430</span>,beta=<span class="number">0.4</span>)</span><br><span class="line">p=<span class="built_in">int</span>(p+roots[<span class="number">0</span>])</span><br><span class="line"><span class="keyword">assert</span> n%p==<span class="number">0</span></span><br><span class="line">q = n//p</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(<span class="number">65537</span>, phi)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">pow</span>(c,d,n)))</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
@@ -840,293 +553,21 @@ flag:解出明文后，请加上BJD{}</p>
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/20/exp-of-the-Genie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/20/exp-of-the-Genie/" class="post-title-link" itemprop="url">exp-of-the-Genie</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-03-20 23:29:33" itemprop="dateCreated datePublished" datetime="2023-03-20T23:29:33+08:00">2023-03-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:13:41" itemprop="dateModified" datetime="2024-04-03T16:13:41+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="x1-abstract-deploy">0x1 Abstract &amp; Deploy</h3>
-<blockquote>
-<p>Julia: 一个面向科学计算的高性能动态高级程序设计语言。</p>
-<p>Genie: 基于Julia开发的全栈Web 框架。</p>
-<p>exploit：上传文件名从<code>sessions/\x1</code>到<code>sessions/\xFF</code>的序列化数据，伪造解密后只有1byte的session，触发反序列化。</p>
-<p>keywords: 反序列化, session id, AES bit flipping attack</p>
-<p>0Day: YES</p>
-<p>author: <a target="_blank" rel="noopener" href="https://github.com/maple3142">maple3142</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/splitline">splitline</a></p>
-<p>CTF Challenge: TSJCTF 2022 Genie(Crypto &amp; Web)</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/20/exp-of-the-Genie/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/02/Simple-Lattice-Attacks/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/02/02/Simple-Lattice-Attacks/" class="post-title-link" itemprop="url">Simple-Lattice-Attacks</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-02-02 17:55:55" itemprop="dateCreated datePublished" datetime="2023-02-02T17:55:55+08:00">2023-02-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:15:03" itemprop="dateModified" datetime="2024-04-03T16:15:03+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Research/" itemprop="url" rel="index"><span itemprop="name">Research</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>《 Introduction of Modern Cryptography》Chapter 7</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/02/02/Simple-Lattice-Attacks/#more" rel="contents">
-                Read more &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/20/exp-of-the-Genie/" rel="prev" title="exp-of-the-Genie">
+                  <i class="fa fa-angle-left"></i> exp-of-the-Genie
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/08/2022-Summary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/08/2022-Summary/" class="post-title-link" itemprop="url">2022_Year_End_Summary</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-01-08 23:58:45" itemprop="dateCreated datePublished" datetime="2023-01-08T23:58:45+08:00">2023-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:12:38" itemprop="dateModified" datetime="2024-04-03T16:12:38+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/other/" itemprop="url" rel="index"><span itemprop="name">other</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>2022过的蛮充实的，虽然在不少比赛中被狠狠拷打（比赛完后也没挨个复现），但还是达成了不少预定目标。总的来说过得去。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/08/2022-Summary/#more" rel="contents">
-                Read more &raquo;
-              </a>
+            <div class="post-nav-item">
+                <a href="/2023/12/27/GoGoCrypto-writeup/" rel="next" title="GoGoCrypto_writeup">
+                  GoGoCrypto_writeup <i class="fa fa-angle-right"></i>
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
@@ -1134,289 +575,7 @@ flag:解出明文后，请加上BJD{}</p>
 
 
 
-    
 
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/01/Applicate_Matrix_in_Recursion/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/01/Applicate_Matrix_in_Recursion/" class="post-title-link" itemprop="url">Applicate_Matrix_in_Recursion</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-01-01 23:54:00" itemprop="dateCreated datePublished" datetime="2023-01-01T23:54:00+08:00">2023-01-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:02:37" itemprop="dateModified" datetime="2024-04-03T16:02:37+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>矩阵变换求解线性递归关系</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/01/Applicate_Matrix_in_Recursion/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/05/CTF_Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/05/CTF_Notes/" class="post-title-link" itemprop="url">CTF_Notes</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-05 22:09:34" itemprop="dateCreated datePublished" datetime="2022-12-05T22:09:34+08:00">2022-12-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-08 23:44:43" itemprop="dateModified" datetime="2024-04-08T23:44:43+08:00">2024-04-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <meta name="referrer" content="no-referrer">
-<p>[TOC]</p>
-<h1 id="x01-not-wiener">0x01 Not Wiener</h1>
-<p>题目是变体的Boneh-Durfee attack, 需要在理解攻击原理后做调整。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/12/05/CTF_Notes/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/11/AMM_algorithm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alexei">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alexei">
-      <meta itemprop="description" content="坚信生活的美好，保持乐观的态度。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Alexei">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/11/AMM_algorithm/" class="post-title-link" itemprop="url">AMM_algorithm</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-10-11 23:23:10" itemprop="dateCreated datePublished" datetime="2022-10-11T23:23:10+08:00">2022-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:02:16" itemprop="dateModified" datetime="2024-04-03T16:02:16+08:00">2024-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Research/" itemprop="url" rel="index"><span itemprop="name">Research</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="x01-how-come">0x01 How come?</h2>
-<p>昨天拿到一道奇怪的RSA题目。乍一看很简单，pq都给出来了，仔细分析有问题：phi%e居然等于0!?顿时觉得有点意思。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/10/11/AMM_algorithm/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
 </div>
   </main>
