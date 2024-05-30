@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="[TOC] 0x01 RSA私钥过大的漏洞 Link  使用过小的RSA私钥指数引发的危险在十多年前就已经为人所知。用户虽然已知这些威胁，但依然希望从实质上降低解密时间，可能会倾向于使用一个与很大的私钥相关的小负素数。这篇论文展示了Wiener, Boneh &amp; Durfee, Blomer &amp; May的针对小私钥指数的攻击，以及由上述攻击延申的对含多个素数的RSA">
+    <meta name="description" content="本博客将不可避免的产生：  致命笔误 直接复制 不懂装懂 懒得排版 证明显然 逻辑混乱 中式翻译  [TOC] 0x01 RSA私钥过大的漏洞 Link  使用过小的RSA私钥指数引发的危险在十多年前就已经为人所知。用户虽然已知这些威胁，但依然希望从实质上降低解密时间，可能会倾向于使用一个与很大的私钥相关的小负素数。这篇论文展示了Wiener, Boneh &amp;am">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Crypto_Papers_Read_&amp;_Recurrent">
 <meta property="og:url" content="http://example.com/2024/01/29/Crypto-Papers-Read-Recurrent/index.html">
 <meta property="og:site_name" content="Alexei">
-<meta property="og:description" content="[TOC] 0x01 RSA私钥过大的漏洞 Link  使用过小的RSA私钥指数引发的危险在十多年前就已经为人所知。用户虽然已知这些威胁，但依然希望从实质上降低解密时间，可能会倾向于使用一个与很大的私钥相关的小负素数。这篇论文展示了Wiener, Boneh &amp; Durfee, Blomer &amp; May的针对小私钥指数的攻击，以及由上述攻击延申的对含多个素数的RSA">
+<meta property="og:description" content="本博客将不可避免的产生：  致命笔误 直接复制 不懂装懂 懒得排版 证明显然 逻辑混乱 中式翻译  [TOC] 0x01 RSA私钥过大的漏洞 Link  使用过小的RSA私钥指数引发的危险在十多年前就已经为人所知。用户虽然已知这些威胁，但依然希望从实质上降低解密时间，可能会倾向于使用一个与很大的私钥相关的小负素数。这篇论文展示了Wiener, Boneh &amp;am">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202401292106997.png">
 <meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202403031656231.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202405230033332.jpg">
 <meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202405230033685.jpg">
 <meta property="article:published_time" content="2024-01-29T12:15:36.000Z">
-<meta property="article:modified_time" content="2024-05-22T16:36:02.816Z">
+<meta property="article:modified_time" content="2024-05-30T14:47:12.843Z">
 <meta property="article:author" content="Alexei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202401292106997.png">
@@ -321,7 +321,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-23 00:36:02" itemprop="dateModified" datetime="2024-05-23T00:36:02+08:00">2024-05-23</time>
+      <time title="Modified: 2024-05-30 22:47:12" itemprop="dateModified" datetime="2024-05-30T22:47:12+08:00">2024-05-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -358,6 +358,16 @@ mjx-container[display="true"] + br {
     
     
     <div class="post-body" itemprop="articleBody"><meta name="referrer" content="no-referrer">
+<p>本博客将不可避免的产生：</p>
+<ul>
+<li>致命笔误</li>
+<li>直接复制</li>
+<li>不懂装懂</li>
+<li>懒得排版</li>
+<li>证明显然</li>
+<li>逻辑混乱</li>
+<li>中式翻译</li>
+</ul>
 <p>[TOC]</p>
 <h1 id="x01-rsa私钥过大的漏洞">0x01 RSA私钥过大的漏洞</h1>
 <p><a target="_blank" rel="noopener" href="https://github.com/AL3XEI709/papers/blob/main/cacr2004-01.pdf">Link</a></p>
@@ -895,13 +905,13 @@ and Tram mell,
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">255k</span>
+    <span title="Word count total">256k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:52</span>
+    <span title="Reading time total">3:53</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
