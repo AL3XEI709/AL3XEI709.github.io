@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -229,6 +229,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><meta name="referrer" content="no-referrer"/>
+
 <span id="more"></span>
 <p>题目：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, bytes_to_long</span><br><span class="line"></span><br><span class="line">DEBUG = <span class="literal">True</span> </span><br><span class="line">p,q,r = [getPrime(<span class="number">1024</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="string">&quot;pqr&quot;</span>] </span><br><span class="line">n = p*q*r </span><br><span class="line">l = getPrime(<span class="number">500</span>)</span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>) * (r - <span class="number">1</span>)</span><br><span class="line">d = phi - l  <span class="comment"># make sure it is big enough that wiener&#x27;s attack doesn&#x27;t work</span></span><br><span class="line">e = <span class="built_in">int</span>(<span class="built_in">pow</span>(d, -<span class="number">1</span>, phi)) </span><br><span class="line"></span><br><span class="line">flag = <span class="string">b&#x27;flag&#123;AL3XEI_FAKE_FLAG&#125;&#x27;</span></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;n = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;e = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;c = &#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> DEBUG:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;down: &quot;</span>, <span class="built_in">int</span>((<span class="number">1</span>/<span class="number">3</span>)*(n**(<span class="number">1</span>/<span class="number">6</span>))).bit_length())  </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;up: &quot;</span>, <span class="built_in">int</span>(<span class="built_in">pow</span>(n, <span class="number">0.292</span>)).bit_length())</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;k:&quot;</span>, <span class="built_in">int</span>((e*l+<span class="number">1</span>)//phi).bit_length()) </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;s:&quot;</span>, <span class="built_in">int</span>(-(- p*q-p*r-q*r+p+q+r-<span class="number">1</span>)).bit_length(), (e*l+<span class="number">1</span>)%phi)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -286,13 +287,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">235k</span>
+    <span title="Word count total">196k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:33</span>
+    <span title="Reading time total">2:58</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
