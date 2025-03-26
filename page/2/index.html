@@ -536,7 +536,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>4.1k</span>
+      <span>4.2k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -555,10 +555,18 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <meta name="referrer" content="no-referrer">
-
-<p><img src="https://iototsecnews.files.wordpress.com/2023/07/openssh.png?w=1008" alt="img"></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>SSH（Secure Shell）是一种加密的网络传输协议。主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。OpenSSH软件套件负责SSH协议的实现。</p>
-<p>23年七月爆出来OpenSSH(9.3p2版本以前)的一个CVE，用户使用 SSH-Agent 代理转发功能连接攻击者恶意服务器时，由于 SSH-Agent 未对加载的共享库进行限制，攻击者可通过将恶意共享库作为参数传递给 SSH-Agent 并通过其调用 dlopen/dlclose 函数加载 / 卸载位于用户客户端主机的共享库，实现远程代码执行。</p>
+<figure>
+<img src="https://iototsecnews.files.wordpress.com/2023/07/openssh.png?w=1008" alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="介绍">介绍</h2>
+<p>SSH（Secure
+Shell）是一种加密的网络传输协议。主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。OpenSSH软件套件负责SSH协议的实现。</p>
+<p>23年七月爆出来OpenSSH(9.3p2版本以前)的一个CVE，用户使用 SSH-Agent
+代理转发功能连接攻击者恶意服务器时，由于 SSH-Agent
+未对加载的共享库进行限制，攻击者可通过将恶意共享库作为参数传递给
+SSH-Agent 并通过其调用 dlopen/dlclose 函数加载 /
+卸载位于用户客户端主机的共享库，实现远程代码执行。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/27/CVE-2023-38408-Brief-analysis/#more" rel="contents">
@@ -666,8 +674,8 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <meta name="referrer" content="no-referrer">
-
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>ECDSA代表椭圆曲线数字签名算法，与旧的RSA签名相比，ECDSA签名长度更短，因此应用面较广，例如各种JWT场景。服务器使用java15~18版本的ECDSA，会受到攻击者绕过的影响。由于ECDSA未对提交的r和s值做仔细的检查，攻击者可通过将为0的r和s作为参数提交给服务器，实现绕过验签的过程。</p>
+<h2 id="介绍">介绍</h2>
+<p>ECDSA代表椭圆曲线数字签名算法，与旧的RSA签名相比，ECDSA签名长度更短，因此应用面较广，例如各种JWT场景。服务器使用java15~18版本的ECDSA，会受到攻击者绕过的影响。由于ECDSA未对提交的r和s值做仔细的检查，攻击者可通过将为0的r和s作为参数提交给服务器，实现绕过验签的过程。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/27/CVE-2022-21449-Brief-analysis/#more" rel="contents">
@@ -756,7 +764,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>2.6k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -775,7 +783,6 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <meta name="referrer" content="no-referrer">
-
 <p>本人参与极客大挑战2023的出题工作，主要负责密码学板块。</p>
 <p>对于GoGoCrypto这道反响比较高的题目，这里附上题解。</p>
           <!--noindex-->
@@ -866,14 +873,14 @@ mjx-container[display="true"] + br {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>33k</span>
+      <span>41k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>30 mins.</span>
+      <span>37 mins.</span>
     </span>
 </div>
 
@@ -884,7 +891,7 @@ mjx-container[display="true"] + br {
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="0x01-RSA"><a href="#0x01-RSA" class="headerlink" title="0x01 RSA"></a>0x01 RSA</h1>
+          <h1 id="x01-rsa">0x01 RSA</h1>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/04/08/CTF-Notes-0x2/#more" rel="contents">
@@ -973,7 +980,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>6k</span>
+      <span>5.9k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -991,14 +998,15 @@ mjx-container[display="true"] + br {
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="0x1-Abstract-amp-Deploy"><a href="#0x1-Abstract-amp-Deploy" class="headerlink" title="0x1 Abstract & Deploy"></a>0x1 Abstract &amp; Deploy</h3><blockquote>
+          <h3 id="x1-abstract-deploy">0x1 Abstract &amp; Deploy</h3>
+<blockquote>
 <p>Julia: 一个面向科学计算的高性能动态高级程序设计语言。</p>
 <p>Genie: 基于Julia开发的全栈Web 框架。</p>
 <p>exploit：上传文件名从<code>sessions/\x1</code>到<code>sessions/\xFF</code>的序列化数据，伪造解密后只有1byte的session，触发反序列化。</p>
 <p>keywords: 反序列化, session id, AES bit flipping attack</p>
 <p>0Day: YES</p>
-<p>author:  <a target="_blank" rel="noopener" href="https://github.com/maple3142">maple3142</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/splitline">splitline</a></p>
-<p>CTF Challenge: TSJCTF 2022 Genie(Crypto &amp; Web) </p>
+<p>author: <a target="_blank" rel="noopener" href="https://github.com/maple3142">maple3142</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/splitline">splitline</a></p>
+<p>CTF Challenge: TSJCTF 2022 Genie(Crypto &amp; Web)</p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
@@ -1088,14 +1096,14 @@ mjx-container[display="true"] + br {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>683</span>
+      <span>7.4k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>7 mins.</span>
     </span>
 </div>
 
@@ -1369,13 +1377,13 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">196k</span>
+    <span title="Word count total">236k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">2:58</span>
+    <span title="Reading time total">3:35</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
