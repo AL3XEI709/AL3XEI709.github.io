@@ -26,19 +26,16 @@
 <meta property="og:site_name" content="Alexei">
 <meta property="og:description" content="0x1 Abstract &amp; Deploy  Julia: 一个面向科学计算的高性能动态高级程序设计语言。 Genie: 基于Julia开发的全栈Web 框架。 exploit：上传文件名从sessions&#x2F;\x1到sessions&#x2F;\xFF的序列化数据，伪造解密后只有1byte的session，触发反序列化。 keywords: 反序列化, session id, AES bi">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.328888.xyz/2023/03/21/PQPEN.png">
-<meta property="og:image" content="https://i.328888.xyz/2023/03/21/TqCvv.png">
+<meta property="og:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202503301847246.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200810201646714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hkazIxNjY=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://i.328888.xyz/2023/03/24/iiJwsC.png">
 <meta property="og:image" content="https://ctf-wiki.org/crypto/blockcipher/mode/figure/cbc_encryption.png">
 <meta property="og:image" content="https://ctf-wiki.org/crypto/blockcipher/mode/figure/cbc_decryption.png">
 <meta property="og:image" content="https://i.328888.xyz/2023/03/22/aeBoX.png">
-<meta property="og:image" content="https://i.328888.xyz/2023/03/22/QWIFk.jpeg">
 <meta property="article:published_time" content="2023-03-20T15:29:33.000Z">
-<meta property="article:modified_time" content="2024-04-03T08:13:41.653Z">
+<meta property="article:modified_time" content="2025-03-30T11:25:49.541Z">
 <meta property="article:author" content="Alexei">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.328888.xyz/2023/03/21/PQPEN.png">
+<meta name="twitter:image" content="https://gitee.com/alekseyp/picgo/raw/master/img/202503301847246.png">
 
 
 <link rel="canonical" href="http://example.com/2023/03/20/exp-of-the-Genie/">
@@ -316,7 +313,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-04-03 16:13:41" itemprop="dateModified" datetime="2024-04-03T16:13:41+08:00">2024-04-03</time>
+      <time title="Modified: 2025-03-30 19:25:49" itemprop="dateModified" datetime="2025-03-30T19:25:49+08:00">2025-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -335,7 +332,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>5.9k</span>
+      <span>6k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -365,7 +362,6 @@ mjx-container[display="true"] + br {
 <span id="more"></span>
 <p>安装Julia https://julialang.org/downloads/ 一路点next
 添加环境变量</p>
-<p><img src="https://i.328888.xyz/2023/03/21/PQPEN.png" style="zoom:50%;"></p>
 <p>安装Genie: 一行搞定</p>
 <p><code>pkg&gt; add Genie</code></p>
 <p>运行<code>using Genie.Sessions</code>可能会报<code>ERROR: UndefVarError: Sessions not defined</code>的错，是因为Genie
@@ -384,7 +380,7 @@ V5的更新把旧的session功能集成到了<code>GenieSession</code>这个新�
 <p>好像是反序列化时会覆盖一个玩意，比如这里就用BigInt盖掉了反序列化大数的方法，然后执行自己想要的东西。</p>
 </blockquote>
 <p>有点搞的是，官方也不知道咋处理这个↓</p>
-<p><img src="https://i.328888.xyz/2023/03/21/TqCvv.png"></p>
+<p><img src="https://gitee.com/alekseyp/picgo/raw/master/img/202503301847246.png" alt="image-20250330184739166"></p>
 <p>而Genie框架就是用序列化存储session的。</p>
 <blockquote>
 <p>Session:“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的
@@ -416,8 +412,7 @@ session)</li>
 <p>能拿到session id 吗？</p>
 </blockquote>
 <h3 id="x4-encrypted-session-id">0x4 Encrypted session id</h3>
-<p>cookie的内容：</p>
-<p><img src="https://i.328888.xyz/2023/03/24/iiJwsC.png" style="zoom:50%;"></p>
+<p>cookie的内容：{"name": "__geniesid", "value": 0xc0ffee}</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">|                                                                   |</span><br><span class="line">|     {"name": "__geniesid", "value": 0xc0ffee} //64bytes密文        |</span><br><span class="line">|                                                                   |</span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">                                  |                                  </span><br><span class="line">                                  |                                       </span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">|                                                                   |</span><br><span class="line">|       AES/CBC decrypt(__geniesid)   -&gt;真正的 session id            |</span><br><span class="line">|                                                                   |</span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">                                  |                                  </span><br><span class="line">                                  |                                                      </span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">|                                                                   |</span><br><span class="line">|               open("sessions/"+&lt;明文 session id&gt;)                   |</span><br><span class="line">|                                                                   |</span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">                                  |                                  </span><br><span class="line">                                  |                                                     </span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">|                                                                   |</span><br><span class="line">|                  Serialization.deserialize(内容)                    |</span><br><span class="line">|                                                                   |</span><br><span class="line">+-------------------------------------------------------------------+</span><br><span class="line">                                                                     </span><br></pre></td></tr></table></figure>
 <p>注意到sessionid是经过<code>AES/CBC</code>加密的。</p>
 <p>加密：</p>
@@ -455,7 +450,7 @@ id的加密，我们是其实是可以知道最后一组明文的。由于采用
 <figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> trim_padding_PKCS5(data::<span class="built_in">Vector</span>{<span class="built_in">UInt8</span>})</span><br><span class="line">  padlen = data[sizeof(data)]</span><br><span class="line">  <span class="keyword">return</span> data[<span class="number">1</span>:sizeof(data)-padlen] <span class="string">"???"</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>它导致只要传的数据是<code>len(plaintext)-1</code>，就能把最后一个byte前的所有明文覆盖掉！</p>
 <blockquote>
-<p>这个问题在去年3月时被发现，现在已经修改了，我在查JuliaCrypto日志的时候才发现lol</p>
+<p>这个问题在21年3月时被发现，现在已经修改了，我在查JuliaCrypto日志的时候才发现lol</p>
 </blockquote>
 <p><img src="https://i.328888.xyz/2023/03/22/aeBoX.png"></p>
 <p>新的padding函数：</p>
@@ -465,7 +460,6 @@ id的加密，我们是其实是可以知道最后一组明文的。由于采用
 <blockquote>
 <p>x1f是32-1，32就是两个block的长度。</p>
 </blockquote>
-<p><img src="https://i.328888.xyz/2023/03/22/QWIFk.jpeg"></p>
 <p>最终解密得到的明文只有<code>data[1]</code>1byte，也就是第4个block解密后的第一个byte。我们不知道它是多少，但已经不重要了。</p>
 <h3 id="genies-exp">Genie's exp</h3>
 <p>先上传254个恶意文件，文件名从<code>"../sessions/x01"</code> 到
@@ -523,13 +517,13 @@ id的加密，我们是其实是可以知道最后一组明文的。由于采用
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">236k</span>
+    <span title="Word count total">243k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:35</span>
+    <span title="Reading time total">3:41</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
